@@ -1,0 +1,138 @@
+Importer Log Report
+Project : SG2002_QFN88_38_20230301_4L_V1.3_16.2.PrjPcb
+
+Section : Document - C:\Users\nilot\Documents\VSCode\SBC\imports\SG2002_QFN88_38_20230301_4L_V1.3_16.2.DSN
+
+    Section : Importing Library - SG2002_QFN88_38_20230301_4L_V1.3_16.2_Library.SchLib
+        Error   : Could not map PSpice template pin "1" on component "D1N5819-1A_1"
+        Error   : Could not map PSpice template pin "2" on component "D1N5819-1A_1"
+        Error   : Could not map PSpice template pin "1" on component "D1N5819-1A_2"
+        Error   : Could not map PSpice template pin "2" on component "D1N5819-1A_2"
+        Error   : Could not map PSpice template pin "C" on component "2N1069_0"
+        Error   : Could not map PSpice template pin "B" on component "2N1069_0"
+        Error   : Could not map PSpice template pin "E" on component "2N1069_0"
+    EndSection
+
+    Section : Importing Sheet - 04_Main.SchDoc
+        Warning : Junction at (28800mil,13000mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (15400mil,12300mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (23700mil,8500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (23700mil,8300mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (3000mil,4600mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (8400mil,4500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (9700mil,4500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (23400mil,4500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (18900mil,4300mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (13100mil,3700mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (9100mil,3600mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (9400mil,3600mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (23400mil,2500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (7600mil,1600mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (7500mil,9600mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (18400mil,2100mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (18800mil,2100mil) has been removed. It will be automatically calculated.
+    EndSection
+
+    Section : Importing Sheet - 05_SYS_Power.SchDoc
+        Warning : Junction at (5600mil,10300mil) has been added.
+        Warning : Junction at (6800mil,7500mil) has been added.
+        Warning : Junction at (5500mil,6700mil) has been added.
+        Warning : Junction at (16700mil,9800mil) has been added.
+        Warning : Junction at (1500mil,10600mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (1500mil,10100mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (4500mil,10900mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (5600mil,10900mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (6800mil,10900mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (2300mil,10600mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (1900mil,10600mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (16700mil,6000mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (17800mil,6000mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (13500mil,5900mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (13100mil,5500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (17800mil,5500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (16700mil,5300mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (14000mil,5100mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (17400mil,6000mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (5500mil,7500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (1800mil,7100mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (2300mil,7100mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (2800mil,7100mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (16700mil,10400mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (12800mil,10500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (12800mil,10000mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (13200mil,10500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (18100mil,10400mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (6800mil,6700mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (3300mil,2800mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (3700mil,2800mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (6700mil,2800mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (6700mil,2200mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (3700mil,2000mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (19300mil,3100mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (19300mil,2700mil) has been removed. It will be automatically calculated.
+    EndSection
+
+    Section : Importing Sheet - 06_eMMC_SDIO_SPINAND_SPINOR.SchDoc
+        Warning : Junction at (6900mil,2000mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (10700mil,6900mil) has been removed. It will be automatically calculated.
+    EndSection
+
+    Section : Importing Sheet - 07_USB_LED.SchDoc
+        Warning : Junction at (9200mil,2900mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (8000mil,3100mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (6900mil,3300mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (6900mil,2500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (6500mil,3300mil) has been removed. It will be automatically calculated.
+    EndSection
+
+    Section : Importing Sheet - 08_RJ45.SchDoc
+        Warning : Junction at (10200mil,3600mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (4500mil,3900mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (4500mil,4300mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (4500mil,3500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (4500mil,3100mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (9300mil,2000mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (8800mil,2000mil) has been removed. It will be automatically calculated.
+    EndSection
+
+    Section : Importing Sheet - 09_AUDIO.SchDoc
+        Warning : Junction at (8400mil,5400mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (8400mil,5200mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (10500mil,4600mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (7000mil,2700mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (5800mil,2000mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (6300mil,2000mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (8400mil,4400mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (6100mil,4400mil) has been removed. It will be automatically calculated.
+    EndSection
+
+    Section : Importing Sheet - 10_Sensor.SchDoc
+        Warning : Junction at (1500mil,11600mil) has been added.
+        Warning : Junction at (4500mil,11600mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (1100mil,11120mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (3500mil,11200mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (8600mil,11500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (1600mil,9020mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (4200mil,9020mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (4600mil,9020mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (1200mil,8520mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (1600mil,8520mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (12400mil,4800mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (9000mil,11500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (11300mil,11500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (1100mil,11600mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (8400mil,7000mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (3400mil,7500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (3500mil,7500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (3900mil,7500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (4300mil,7500mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (3800mil,4900mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (4400mil,4900mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (8500mil,5200mil) has been removed. It will be automatically calculated.
+        Warning : Junction at (12900mil,4600mil) has been removed. It will be automatically calculated.
+    EndSection
+
+    Section : Importing PSpice Simulation Profiles
+        Error   : Orcad Project file not found - 
+    EndSection
+EndSection

@@ -1,0 +1,10 @@
+Name,Designator,Electrical Type,Description,Side
+XTAL_XIN,45,Input,XTAL_XIN,Left
+XTAL_XOUT,46,Output,XTAL_XOUT,Right
+PAD_ZQ,35,Input,ZQ_TP,Left
+PWR_RSTN,39,Input,RESET_N,Left
+PWR_BUTTON1,44,Input,BOOT_BTN,Left
+PWR_SEQ1,40,Input,SEQ1_TP,Right
+PWM0_BUCK,58,IO,PWM0_BUCK,Right
+ADC1,59,IO,ADC1,Right
+EPHY_RTX,67,IO,CPU_SEL,Right

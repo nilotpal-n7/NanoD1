@@ -1,0 +1,23 @@
+Name,Designator,Electrical Type,Description,Side
+VDDC,9,Power,VDDC,Left
+VDDC,16,Power,VDDC,Left
+VDDC,50,Power,VDDC,Left
+VDDC,61,Power,VDDC,Left
+VDDC,71,Power,VDDC,Left
+VDDQ_DRAM,31,Power,VDD1V35,Left
+VDDQ,32,Power,VDD1V35,Left
+VDDQ,33,Power,VDD1V35,Left
+VDDQ_DRAM,34,Power,VDD1V35,Left
+VDDIO_SD0,13,Power,VDD3V3,Right
+VDDIO_SD1,57,Power,VDD3V3,Right
+VDD33A_ETH,66,Power,VDD3V3,Right
+VDD18A_USB,68,Power,VDD18A_USB,Right
+VDDIO_RTC,36,Power,VDD1V8,Right
+VDD18A_MIPI,82,Power,VDD1V8,Right
+VDD18A_AUD,5,Power,VDD1V8,Right
+VDDC_RTC,37,Power,VDDC_RTC,Right
+PWR_SEQ2,41,Input,PWR_SEQ2,Top
+PWR_VBAT_DET,38,Input,VBAT_DET,Top
+VSS18A_AUD,1,Power,GND,Bottom
+EPAD,89,Power,GND,Bottom
+PTEST,42,Input,GND,Bottom

@@ -1,0 +1,42 @@
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of Project [NanoD1.PrjPcb]
+   Generated File[NanoD1.GTO]
+   Generated File[NanoD1.GTP]
+   Generated File[NanoD1.GTS]
+   Generated File[NanoD1.GTL]
+   Generated File[NanoD1.G1]
+   Generated File[NanoD1.G2]
+   Generated File[NanoD1.GBL]
+   Generated File[NanoD1.GBS]
+   Generated File[NanoD1.GBP]
+   Generated File[NanoD1.GBO]
+   Generated File[NanoD1.GM1]
+   Generated File[NanoD1.GM2]
+   Generated File[NanoD1.GM3]
+   Generated File[NanoD1.GM5]
+   Generated File[NanoD1.GM13]
+   Generated File[NanoD1.GM15]
+   Generated File[NanoD1.GM16]
+   Generated File[NanoD1.GM20]
+   Generated File[NanoD1.GM21]
+   Generated File[NanoD1.GM23]
+   Generated File[NanoD1.GM24]
+   Generated File[NanoD1.GKO]
+   Generated File[NanoD1.GPT]
+   Generated File[NanoD1.GPB]
+   Generated File[NanoD1.GML]
+   Generated File[NanoD1.1]
+   Generated File[NanoD1.3]
+   Generated File[NanoD1.2]
+   Generated File[NanoD1.GD1]
+   Generated File[NanoD1.GG1]
+   Generated File[NanoD1.GM]
+   Generated File[NanoD1.EXTREP]
+   Generated File[NanoD1.REP]
+
+
+Files Generated   : 33
+Documents Printed : 0
+
+Finished Output Generation At 01:46:17 AM On 07-09-2026

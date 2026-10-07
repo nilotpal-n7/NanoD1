@@ -1,0 +1,21 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: NanoD1.PcbDoc   07-09-2026  01:36:49 AM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII Plated RoundHoles File : NanoD1-RoundHoles-Plated.TXT
+ASCII Non-Plated RoundHoles File : NanoD1-RoundHoles-NonPlated.TXT
+ASCII Plated SlotHoles File : NanoD1-SlotHoles-Plated.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      0.3mm (12mil)                                             Round             211       PTH        590.26mm (23.24inch)
+T2      0.4mm (16mil)                                             Round             16        PTH        13.25mm (0.52inch)
+T3      0.6mm (24mil)                                             Slot              4         PTH        36.16mm (1.42inch)
+T4      0.9mm (35mil)                                             Round             33        PTH        109.83mm (4.32inch)
+T5      1mm (39mil)                                               Round             2         PTH        2.00mm (0.08inch)
+T6      0.6mm (24mil)                                             Round             1         NPTH       0.00mm (0.00inch)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              267
+
+Total Processing Time (hh:mm:ss) : 00:00:00

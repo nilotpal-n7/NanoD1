@@ -1,0 +1,4 @@
+Name,Designator,Electrical Type,Description,Side
+USB_DP,69,IO,USB_DP,Right
+USB_DM,70,IO,USB_DM,Right
+USB_VBUS_DET,60,IO,USB_VBUS_DET,Left

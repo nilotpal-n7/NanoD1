@@ -1,0 +1,7 @@
+Name,Designator,Electrical Type,Description,Side
+ETH_TXM_IIS2_BCLK,63,IO,I2S_BCLK,Right
+ETH_TXP_IIS2_LRCK,62,IO,I2S_LRCK,Right
+ETH_RXP_IIS2_DO,64,Output,I2S_DOUT,Right
+ETH_RXM_IIS2_DI,65,Input,I2S_DIN,Right
+PWR_GPIO1,48,Output,AMP_SD_MODE,Left
+PWR_GPIO2,49,IO,SPARE_1V8,Left

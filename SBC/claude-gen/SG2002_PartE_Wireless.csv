@@ -1,0 +1,9 @@
+Name,Designator,Electrical Type,Description,Side
+SD1_CLK,56,IO,SD1_CLK,Right
+SD1_CMD,55,IO,SD1_CMD,Right
+SD1_D0,54,IO,SD1_D0,Right
+SD1_D1,53,IO,SD1_D1,Right
+SD1_D2,52,IO,SD1_D2,Right
+SD1_D3,51,IO,SD1_D3,Right
+PWR_GPIO0,47,IO,WL_REG_ON,Left
+PWR_WAKEUP0,43,IO,WL_HOST_WAKE,Left

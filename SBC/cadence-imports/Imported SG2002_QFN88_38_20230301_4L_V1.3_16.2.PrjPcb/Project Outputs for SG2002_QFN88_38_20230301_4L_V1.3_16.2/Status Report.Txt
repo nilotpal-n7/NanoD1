@@ -1,0 +1,10 @@
+Output: Protel
+Type  : ProtelNetlist
+From  : Project [SG2002_QFN88_38_20230301_4L_V1.3_16.2.PrjPcb]
+   Generated File[SG2002_QFN88_38_20230301_4L_V1.3_16.2.NET]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 01:38:46 AM On 16-08-2026

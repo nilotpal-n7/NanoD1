@@ -1,0 +1,14 @@
+Component   : QFN88-9x9-0.35
+PCB Library : NanoD1.PcbLib
+Date        : 16-08-2026
+Time        : 07:16:27 AM
+
+
+
+Dimension : 10.719 x 10.262 mm
+
+ Layer(s)              Pads(s)  Tracks(s)  Fill(s)  Arc(s)  Text(s)
+--------------------------------------------------------------------
+ Top Overlay                 0          8        0       1        0
+--------------------------------------------------------------------
+ Total                       0          8        0       1        0

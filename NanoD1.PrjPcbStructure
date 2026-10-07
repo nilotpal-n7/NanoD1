@@ -1,0 +1,8 @@
+Record=TopLevelDocument|FileName=NanoD1_Audio.SchDoc|SheetNumber=5
+Record=NoMainPathDocument|SourceDocument=NanoD1_Audio.SchDoc|FileName=NanoD1_Clk_Reset.SchDoc|SheetNumber=7
+Record=NoMainPathDocument|SourceDocument=NanoD1_Audio.SchDoc|FileName=NanoD1_Decoupling.SchDoc|SheetNumber=2
+Record=NoMainPathDocument|SourceDocument=NanoD1_Audio.SchDoc|FileName=NanoD1_IO.SchDoc|SheetNumber=8
+Record=NoMainPathDocument|SourceDocument=NanoD1_Audio.SchDoc|FileName=NanoD1_Power.SchDoc|SheetNumber=1
+Record=NoMainPathDocument|SourceDocument=NanoD1_Audio.SchDoc|FileName=NanoD1_Storage.SchDoc|SheetNumber=3
+Record=NoMainPathDocument|SourceDocument=NanoD1_Audio.SchDoc|FileName=NanoD1_USB.SchDoc|SheetNumber=4
+Record=NoMainPathDocument|SourceDocument=NanoD1_Audio.SchDoc|FileName=NanoD1_Wireless.SchDoc|SheetNumber=6

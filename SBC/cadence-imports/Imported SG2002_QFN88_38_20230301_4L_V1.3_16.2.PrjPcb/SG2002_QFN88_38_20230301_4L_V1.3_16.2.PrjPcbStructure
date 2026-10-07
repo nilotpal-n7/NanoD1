@@ -1,0 +1,10 @@
+Record=TopLevelDocument|FileName=01_Cover.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=01_Cover.SchDoc|FileName=02_Diagram.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=01_Cover.SchDoc|FileName=03_Power tree.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=01_Cover.SchDoc|FileName=04_Main.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=01_Cover.SchDoc|FileName=05_SYS_Power.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=01_Cover.SchDoc|FileName=06_eMMC_SDIO_SPINAND_SPINOR.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=01_Cover.SchDoc|FileName=07_USB_LED.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=01_Cover.SchDoc|FileName=08_RJ45.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=01_Cover.SchDoc|FileName=09_AUDIO.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=01_Cover.SchDoc|FileName=10_Sensor.SchDoc|SheetNumber= 

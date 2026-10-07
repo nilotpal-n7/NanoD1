@@ -1,0 +1,843 @@
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nano-D1 — Schematic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--mask:#14120e;--panel:#201c16;--line:#332d23;--line2:#2a2419;
+ --gold:#d4a843;--gold-dim:#8a6f2e;--amber:#e8913c;
+ --ink:#ece5d4;--mute:#8d8574;--faint:#5d5749;
+ --disp:"Barlow Condensed",Oswald,"Arial Narrow",sans-serif;
+ --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--mask);color:var(--ink);font-family:var(--mono);font-size:13px;
+ overflow:hidden;display:grid;grid-template-rows:auto 1fr;height:100vh}
+header{display:flex;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#221e17,#191610)}
+.brand{padding:9px 16px;border-right:1px solid var(--line);display:flex;flex-direction:column;justify-content:center}
+.brand h1{font-family:var(--disp);font-weight:700;font-size:21px;letter-spacing:.06em;margin:0;text-transform:uppercase;color:var(--gold)}
+.brand span{font-size:9.5px;color:var(--mute);letter-spacing:.14em;text-transform:uppercase}
+.hstat{padding:9px 13px;border-right:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;min-width:62px}
+.hstat b{font-family:var(--disp);font-size:18px;font-weight:600;line-height:1}
+.hstat b.warn{color:var(--amber)}
+.hstat i{font-style:normal;font-size:8.5px;color:var(--mute);letter-spacing:.12em;text-transform:uppercase;margin-top:3px}
+.hsearch{flex:1;display:flex;align-items:center;padding:0 13px;gap:8px;min-width:0}
+.hsearch input{flex:1;min-width:0;background:#100e0a;border:1px solid var(--line);color:var(--ink);
+ font-family:var(--mono);font-size:12px;padding:7px 10px;border-radius:3px;outline:none}
+.hsearch input:focus{border-color:var(--gold-dim)}
+.hsearch button{background:none;border:1px solid var(--line);color:var(--mute);font-family:var(--mono);
+ font-size:10.5px;padding:6px 9px;border-radius:3px;cursor:pointer;white-space:nowrap}
+.hsearch button:hover{border-color:var(--gold-dim);color:var(--gold)}
+.hsearch button.on{border-color:var(--gold);color:var(--gold);background:#2a2317}
+.shell{display:grid;grid-template-columns:184px 1fr 340px;min-height:0}
+@media(max-width:1200px){.shell{grid-template-columns:150px 1fr}.inspector{display:none}}
+.rail{border-right:1px solid var(--line);background:var(--panel);overflow-y:auto;padding:13px 11px}
+.rail h2,.inspector h2{font-family:var(--disp);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin:0 0 4px;font-weight:600}
+.rail p.sub{font-size:9.5px;color:var(--faint);margin:0 0 11px;line-height:1.55}
+.stack{border:1px solid var(--line);border-radius:2px;overflow:hidden;background:#0d0b08}
+.sl{display:flex;align-items:center;padding:0 6px;font-size:8.5px;letter-spacing:.05em;color:#0d0b08;font-weight:700}
+.sl.di{background:repeating-linear-gradient(45deg,#2a2419,#2a2419 3px,#241f16 3px,#241f16 6px);color:var(--faint);font-weight:400}
+.sl.cu{cursor:pointer;transition:filter .15s,opacity .15s}
+.sl.cu:hover{filter:brightness(1.25)}.sl.cu.off{opacity:.22;filter:grayscale(1)}
+.sl .dk{margin-left:auto;opacity:.72;font-weight:400}
+.sl.mask{background:#241f17;color:var(--faint);font-weight:400}
+.legend{margin-top:12px;font-size:9px;color:var(--faint);line-height:1.65}
+.legend b{color:var(--mute);font-weight:400}
+.railnote{margin-top:12px;padding:8px;border:1px solid var(--line);border-left:2px solid var(--amber);
+ font-size:9px;line-height:1.6;color:var(--mute);background:#191610;border-radius:2px}
+.railnote b{color:var(--amber);font-weight:600}
+.canvas{position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 42%,#191510 0%,#0e0c09 100%)}
+svg{width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+svg.drag{cursor:grabbing}
+.hint{position:absolute;left:13px;bottom:11px;font-size:9.5px;color:var(--faint);
+ background:rgba(14,12,9,.9);border:1px solid var(--line);padding:5px 9px;border-radius:3px;pointer-events:none}
+.zoomer{position:absolute;right:11px;bottom:11px;display:flex;gap:5px}
+.zoomer button{width:27px;height:27px;background:rgba(20,18,14,.94);border:1px solid var(--line);
+ color:var(--mute);border-radius:3px;cursor:pointer;font-family:var(--mono);font-size:12px}
+.zoomer button:hover{color:var(--gold);border-color:var(--gold-dim)}
+#tip{position:absolute;pointer-events:none;z-index:20;width:310px;background:#100e0a;
+ border:1px solid var(--gold-dim);border-radius:3px;padding:9px 11px;font-size:10.5px;line-height:1.55;
+ box-shadow:0 8px 26px rgba(0,0,0,.75);color:var(--ink);opacity:0;transition:opacity .12s}
+#tip.on{opacity:1}
+#tip.vf{border-color:var(--amber)}
+#tip .tr{font-family:var(--disp);font-size:16px;font-weight:600;letter-spacing:.04em;color:var(--gold);line-height:1.1}
+#tip .tv{font-size:12px;color:var(--ink);margin-top:1px}
+#tip .tm{font-size:9.5px;color:var(--mute);margin-top:3px}
+#tip .tn{margin-top:7px;padding-top:6px;border-top:1px solid var(--line);color:#cfc7b3;font-size:10px}
+#tip .tvf{margin-top:6px;color:var(--amber);font-size:9.5px}
+#tip .tnets{margin-top:6px;font-size:9.5px;color:var(--faint);word-break:break-all}
+.board{fill:#191510;stroke:var(--gold-dim);stroke-width:1.4}
+.zone rect{fill:rgba(212,168,67,.022);stroke:#3a3226;stroke-width:1;stroke-dasharray:6 6}
+.zone text{font-family:var(--disp);font-size:13px;letter-spacing:.2em;fill:#5d5749;text-transform:uppercase}
+.comp{cursor:pointer}
+.comp rect.body{fill:#221d15;stroke:#4a4032;stroke-width:1.1;transition:stroke .15s,fill .15s}
+.comp.soc rect.body{fill:#1d1913;stroke:#5c4f36;stroke-width:1.6}
+.comp.pas rect.body{fill:#1e1a13;stroke:#443a2c}
+.comp.vf rect.body{stroke:var(--amber);stroke-dasharray:4 2}
+.comp text.cname{font-family:var(--disp);font-size:15px;font-weight:600;fill:var(--ink);letter-spacing:.05em}
+.comp text.cref{font-family:var(--mono);font-size:8.5px;fill:var(--gold-dim);letter-spacing:.07em}
+.comp text.csub{font-family:var(--mono);font-size:7.5px;fill:var(--faint)}
+.comp text.pref{font-family:var(--mono);font-size:7.6px;fill:var(--gold-dim)}
+.comp text.pval{font-family:var(--mono);font-size:7.6px;fill:#b8b09c}
+.comp.vf text.pref{fill:var(--amber)}
+.comp.hot rect.body{stroke:var(--gold);fill:#2b2417}
+.comp.dim{opacity:.2}
+.sym{stroke:#9a8b6a;stroke-width:1.3;fill:none}
+.comp.hot .sym{stroke:var(--gold)}
+.dnp{stroke:#7a6a4a;stroke-width:1;stroke-dasharray:3 2}
+.pinpad{fill:#3a3021;stroke:#6b5a3b;stroke-width:.7;cursor:pointer}
+.pinpad.conn{fill:var(--gold-dim);stroke:var(--gold)}
+.pinpad.hot{fill:var(--gold);stroke:#fff3d0;stroke-width:1.3}
+.pinlbl{font-family:var(--mono);font-size:7.2px;fill:#9a927e;pointer-events:none}
+.pinnum{font-family:var(--mono);font-size:6.4px;fill:#6d6553;pointer-events:none}
+.pinlbl.hot,.pinnum.hot{fill:var(--gold)}
+.wire{fill:none;stroke-width:1.3;opacity:.3;cursor:pointer;transition:opacity .15s,stroke-width .15s}
+.wire:hover{opacity:1;stroke-width:2.4}
+.wire.hot{opacity:1;stroke-width:2.6;filter:drop-shadow(0 0 5px currentColor)}
+.wire.dim{opacity:.04}
+.wire.hidden,.jn.hidden,.netlbl.hidden{display:none}
+.jn{stroke:none;opacity:.5;transition:opacity .15s}.jn.hot{opacity:1}.jn.dim{opacity:.05}
+.netlbl{font-family:var(--mono);font-size:8px;pointer-events:none;opacity:0;transition:opacity .15s}
+.netlbl.hot{opacity:1}
+.inspector{border-left:1px solid var(--line);background:var(--panel);overflow-y:auto;padding:13px 13px 40px}
+.emptyi{color:var(--faint);font-size:10.5px;line-height:1.75;margin-top:5px}
+.emptyi b{color:var(--mute);font-weight:500}
+.nethead{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin-bottom:2px}
+.nethead h3{font-family:var(--disp);font-size:25px;font-weight:700;margin:0;letter-spacing:.03em;line-height:1;word-break:break-all}
+.chip{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;padding:3px 6px;border-radius:2px;color:#0d0b08;font-weight:700}
+.chip.ghost{background:none;border:1px solid var(--line);color:var(--mute);font-weight:400}
+.chip.vf{background:var(--amber)}
+.metagrid{margin:11px 0 0;border-top:1px solid var(--line);padding:0}
+.metagrid div{display:flex;gap:9px;padding:6px 0;border-bottom:1px solid var(--line2);font-size:10.5px}
+.metagrid dt{color:var(--faint);min-width:66px;flex-shrink:0;font-size:9.5px;letter-spacing:.05em;text-transform:uppercase}
+.metagrid dd{margin:0;color:var(--ink);line-height:1.5}
+.rulebox{margin-top:11px;padding:9px;border:1px solid var(--line);border-left:2px solid currentColor;
+ font-size:10px;line-height:1.65;background:#191610;border-radius:2px}
+.rulebox strong{display:block;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:5px;font-weight:600}
+.rulebox span{color:#cfc7b3}
+.warn{border-left-color:var(--gold)!important}.warn span{color:#f0d89a}
+.vfbox{border-left-color:var(--amber)!important;color:var(--amber)!important}
+h4.sec{font-family:var(--disp);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin:16px 0 5px;font-weight:600}
+.conn,.netlist{list-style:none;margin:0;padding:0}
+.conn li,.netlist li{display:flex;gap:7px;align-items:baseline;padding:5px;font-size:10px;
+ border-bottom:1px solid var(--line2);cursor:pointer}
+.conn li:hover,.netlist li:hover{background:#282217}
+.conn li .ref{color:var(--gold);min-width:32px;font-weight:500}
+.conn li .pn{color:var(--faint);min-width:22px;text-align:right}
+.conn li .nm{color:#cfc7b3;word-break:break-word}
+.netlist li .sw{width:8px;height:8px;border-radius:1px;flex-shrink:0}
+.netlist li .ct{margin-left:auto;color:var(--faint);font-size:9px}
+.bomrow{display:flex;gap:8px;padding:5px 4px;font-size:10px;border-bottom:1px solid var(--line2);align-items:baseline}
+.bomrow .v{color:var(--ink);min-width:88px}
+.bomrow .q{color:var(--gold-dim);min-width:20px;text-align:right}
+.bomrow .d{color:var(--faint);font-size:9px;word-break:break-word}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header>
+  <div class="brand"><h1>Nano-D1</h1><span>SG2002 · Schematic rev3 · I2S audio</span></div>
+  <div class="hstat"><b id="s-comps">—</b><i>Parts</i></div>
+  <div class="hstat"><b id="s-nets">—</b><i>Nets</i></div>
+  <div class="hstat"><b id="s-pins">—</b><i>Pins</i></div>
+  <div class="hstat"><b id="s-vf" class="warn">—</b><i>Verify</i></div>
+  <div class="hsearch">
+    <input id="q" placeholder="Search nets and parts — try  VDDC   strap   11k8   I2S" autocomplete="off">
+    <button id="tvf">Open items</button>
+    <button id="tbom">BOM</button>
+    <button id="tpass" class="on">Passives</button>
+    <button id="clear">Clear</button>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="rail">
+    <h2>Stackup</h2>
+    <p class="sub">1.62 mm · 4L · 1 oz every layer. To scale. Click a copper layer to hide its nets.</p>
+    <div class="stack" id="stack"></div>
+    <div class="legend" id="legend"></div>
+    <div class="railnote"><b>Amber = verify before fab.</b> Three items are unresolved and marked on the parts they affect.</div>
+  </aside>
+  <div class="canvas">
+    <svg id="svg" viewBox="0 0 2600 1500" preserveAspectRatio="xMidYMid meet"></svg>
+    <div id="tip"></div>
+    <div class="hint">Hover for value and notes · click to trace a net · drag to pan · scroll to zoom · Esc clears</div>
+    <div class="zoomer"><button id="zin">+</button><button id="zout">−</button><button id="zfit">⤢</button></div>
+  </div>
+  <aside class="inspector" id="insp"></aside>
+</div>
+
+<script>
+const LAYERS={
+ 1:{name:"L1 Top",color:"#ff7a4d",role:"Signal fanout + GND pour"},
+ 2:{name:"L2 GND",color:"#5cc07f",role:"Solid ground — unbroken"},
+ 3:{name:"L3 Power",color:"#cf6ee0",role:"Power shapes (VDDC pour)"},
+ 4:{name:"L4 Bottom",color:"#4f9fe8",role:"Power distribution + signal"}};
+const STACK=[{t:.8,label:"Solder mask",dk:"3.5",kind:"mask"},{t:1.25,label:"L1 TOP",dk:"1 oz",kind:"cu",L:1},
+ {t:5,label:"Prepreg",dk:"Dk 4.07",kind:"di"},{t:1.25,label:"L2 GND",dk:"1 oz",kind:"cu",L:2},
+ {t:47.2,label:"Core",dk:"Dk 4.0",kind:"di"},{t:1.25,label:"L3 PWR",dk:"1 oz",kind:"cu",L:3},
+ {t:5,label:"Prepreg",dk:"Dk 4.07",kind:"di"},{t:1.25,label:"L4 BOTTOM",dk:"1 oz",kind:"cu",L:4},
+ {t:.8,label:"Solder mask",dk:"3.5",kind:"mask"}];
+
+const NET={
+ GND:{L:2,dom:"0 V",rule:"Pin 1 is audio-local; every other return is the E-pad (89). Reference board uses 39 ground vias at the pad — 27 inside the 6x6 exposed area, 12 in the mask ring. Measured, not estimated."},
+ VBUS_5V:{L:3,dom:"5 V",rule:"USB-C sink only. CC1 and CC2 each need their own 5.1k pull-down."},
+ VDD3V3:{L:3,dom:"3.3 V",rule:"Gated by PWR_SEQ2 — rises only after 1.8 V. W3 >= 0.5 mm on L3/Bottom, W1 >= 0.4 mm under the SoC.",warn:1},
+ VDD1V8:{L:3,dom:"1.8 V",rule:"From the LDO, fanned out through ferrites into four analog domains."},
+ VDD1V35:{L:3,dom:"1.35 V",rule:"DDR3L VDDQ, external supply. Three vias sit in the E-pad mask ring at y = -3.600 on the bottom package edge (measured), plus 6 in pin-out and 9 on Bottom. W2 >= 1.5 mm.",warn:1},
+ VDDC:{L:3,dom:"0.95 V",rule:"0.95 V for SG2002, not 0.9 V. Size for 1.5 A. Five vias, one per pin, at the pin. On L3 the pour measures 10.0 x 6.2 mm, 24.67 mm2, with a 1.65 mm arm to the regulator and a narrow waist at y = -1.1 crossing under the E-pad.",warn:1},
+ VDDC_RTC:{L:3,dom:"internal",rule:"Internal LDO output. Capacitors only — never drive from a supply.",warn:1},
+ VDD18A_USB:{L:3,dom:"1.8 V analog",rule:"USB PHY and PLL. Ferrite-isolated. Survives the Ethernet removal \u2014 the PLL clocks the whole chip."},
+ WIFI_VDD:{L:3,dom:"3.3 V",rule:"Ferrite plus bulk local to the module. WiFi TX bursts are the noisiest load on the board."},
+ USB_DP:{L:1,dom:"USB2",pair:"USB_DM",rule:"90 ohm +/-10%, 0.125 / 0.10 / 0.15 mm. Intra-pair skew under 10 mil. Stitching vias <= 7.5 mm."},
+ USB_DM:{L:1,dom:"USB2",pair:"USB_DP",rule:"90 ohm. Series resistor and ESD both at the connector end, not the SoC."},
+ USB_DP_C:{L:1,dom:"USB2",rule:"Connector side of the series resistor. ESD taps here; parasitic capacitance under 5 pF."},
+ USB_DM_C:{L:1,dom:"USB2",rule:"Connector side of the series resistor."},
+ I2S_BCLK:{L:1,dom:"1.8 V",rule:"Pin 63, pad PAD_ETH_TXM___EPHY_RXP, fmux 7 = IIS2_BCLK. Route LATE, after power, USB, SDIO, NOR and the crystal. The main aggressor on this bus \u2014 keep it away from the analog rails and clear of WIFI_ANT.",warn:1},
+ I2S_LRCK:{L:1,dom:"1.8 V",rule:"Pin 62, pad PAD_ETH_TXP___EPHY_RXN, fmux 7 = IIS2_LRCK. Amp LRCLK plus mic WS."},
+ I2S_DOUT:{L:1,dom:"1.8 V",rule:"Pin 64, pad PAD_ETH_RXP___EPHY_TXN, fmux 7 = IIS2_DO. DO is the SoC OUTPUT \u2014 it drives the amplifier DIN."},
+ I2S_DIN:{L:1,dom:"1.8 V",rule:"Pin 65, pad PAD_ETH_RXM___EPHY_TXP, fmux 7 = IIS2_DI. SoC INPUT from the mic. Needs the 100k pull-down: these pads sit outside the IO blocks and have no assumable internal pull.",warn:1},
+ AMP_SD_MODE:{L:4,dom:"1.8 V",rule:"Pin 48, freed by dropping the Ethernet LEDs. Reaches the amp only through R55 (300k) \u2014 that resistor is the channel selector, not just a pull-up."},
+ MIC_EN:{L:4,dom:"1.8 V",rule:"INMP441 CHIPEN, pin 8. Tied high through R60. Low or floating = mic in power-down."},
+ AMP_GAIN:{L:4,dom:"3.3 V",rule:"MAX98357A GAIN_SLOT, pin 2. Unconnected = 9 dB, 100k to GND = 15 dB, direct to GND = 12 dB. R56 is DNP, so 9 dB."},
+ SPK_P:{L:4,dom:"speaker",rule:"Amplifier output. At least TWO vias on the direct run to J6. Amp input and output routing must not cross."},
+ SPK_N:{L:4,dom:"speaker",rule:"Amplifier output. Bridge-tied \u2014 this is NOT a ground. Never tie it to GND.",warn:1},
+ XTAL_XIN:{L:1,dom:"1.8 V",rule:"0.25 mm trace, double everything else on the board, per-trace ground shielding. The 1M across XIN/XOUT cannot be omitted.",warn:1},
+ XTAL_XOUT:{L:1,dom:"1.8 V",rule:"0.25 mm trace, per-trace ground shield, no high-speed signals underneath."},
+ LPO:{L:4,dom:"1.8 V",rule:"32.768 kHz clock for the AP6212's Bluetooth low-power modes. Driven from SoC pin 88 — a 1.8 V pin, matching the module IO domain."},
+ WL_LDO_SW:{L:4,dom:"switch node",rule:"AP6212 internal buck switch, pin 21. Reaches pin 23 only through L4. Never tie to a supply rail."},
+ WL_LDO_IN:{L:4,dom:"1.8 V",rule:"AP6212 internal buck feedback input, pin 23. L4 from pin 21, C58 to ground."},
+ AUD_AVREF:{L:4,dom:"1.8 V analog",rule:"Pin 3, internal audio reference. 1 uF to ground even with audio unused, or the audio block bias is undefined."},
+ WIFI_ANT:{L:1,dom:"RF",rule:"50 ohm single-ended: 0.762 mm wide, referenced to L4 not the adjacent plane. All planes cut away beneath.",warn:1},
+ SPI_CLK:{L:1,dom:"3.3 V",rule:"The only single-ended net needing individual ground shielding. Bus under 30 mm."},
+ SPI_MOSI:{L:1,dom:"3.3 V",rule:"EMMC_DAT0 (pin 22) — boot strap and the flash data line. TRM boot table: SPI NOR = DAT3 down + DAT0 up; SPI NAND = both down; eMMC = both up. Internal defaults are both pull-UP, which selects the eMMC/SD0 controller and is how the card boots.",warn:1},
+ SPI_WP:{L:1,dom:"3.3 V",rule:"EMMC_DAT3 (pin 23) — the strap that actually selects the boot device. Pull it DOWN for SPI NOR or NAND; leave it at the internal pull-up for eMMC/SD0. There is no separate SD boot mode: SD0 and eMMC share one controller, so 'eMMC' with a card fitted IS card boot.",warn:1},
+ SD0_CLK:{L:4,dom:"3.3 V",rule:"CL under 30 pF is the binding constraint, not frequency. Short traces, one via, no stubs."},
+ SD1_CLK:{L:4,dom:"3.3 V",rule:"Keep short — the module sits on the right, matching SD1's package edge."},
+ UART0_TX:{L:4,dom:"3.3 V",rule:"BOOT STRAP. The 4.7k pull-up is mandatory; a pull-down puts the chip in ROM fail mode. Reference schematic annotates it 'Do not Delete!!!'.",warn:1},
+ UART0_RX:{L:4,dom:"3.3 V",rule:"Debug console, 115200. The reference also pulls RX up through 4.7k."},
+ PWR_SEQ2:{L:4,dom:"1.8 V",rule:"Gates the 3.3 V regulator enable — the core of the sequencing scheme. RESOLVED: the ETA3414 EN rising threshold is 1.2 V max and the pin defaults low when floating. VDDIO_RTC is 1.8 V typical, 1.62 V minimum, so there is at least 0.42 V of margin. EN input current is 1-2 uA. No level shift needed.",warn:1},
+ VBAT_DET:{L:4,dom:"1.8 V",rule:"30k / 10k from 5 V gives 1.25 V. Shutdown below 1.0 V. Confirmed against the reference netlist. The chip will not start with this floating.",warn:1},
+ CPU_SEL:{L:4,dom:"1.8 V",rule:"Boot strap on pin 67 (GPIO_RTX). Despite the EPHY_RTX alternate-function name it is an ordinary 1.8 V GPIO and is unaffected by dropping Ethernet. Internal default is PULL-DOWN = Cortex-A53. The reference board leaves this resistor UNPOPULATED and therefore boots ARM. You must populate the pull-up to VDDIO_RTC to get the C906 RISC-V core.",warn:1},
+ RESET_N:{L:4,dom:"1.8 V",rule:"10k pull-up plus 100 nF debounce."},
+ ZQ_TP:{L:4,dom:"1.8 V",rule:"No external resistor on the reference board (measures 3.9M). Test point only — first thing to probe when DDR init fails."},
+ BOB:{L:4,dom:"chassis",rule:"Bob Smith termination node. Common point for the four 75 ohm resistors into the 1 nF / 2 kV chassis cap."},
+ FB_VDDC:{L:4,dom:"feedback",rule:"0.6 V reference. R46/R47 set the core rail. The reference board's divider gives 0.90 V — that is the CV181x value and must NOT be copied.",warn:1},
+ FB_3V3:{L:4,dom:"feedback",rule:"0.6 x (100/22.6 + 1) = 3.26 V. Values taken from the reference design."},
+ FB_1V35:{L:4,dom:"feedback",rule:"0.6 x (15/12 + 1) = 1.35 V. Values taken from the reference design."}
+};
+for(let i=0;i<17;i++)NET["HDR18_"+i]={L:4,dom:"1.8 V",rule:"Unused MIPI pin as XGPIOC. 1.8 V domain — a 3.3 V sensor plugged in here damages something. Silkscreen the domain on both sides."};
+const inferL=n=>{
+ if(n==="GND")return 2;
+ if(/^(VDD|VBUS|VCC|WIFI_VDD)/.test(n))return 3;
+ if(/^(I2S_|USB_D|SPI_|XTAL|WIFI_ANT)/.test(n))return 1;
+ return 4;};
+const netMeta=n=>NET[n]||{L:inferL(n),dom:"\u2014",rule:"No special constraint — default width and spacing apply."};
+
+const ZONES={
+ HDR18:{x:150,y:110,w:540,h:130,t:"Header \u00b7 1.8 V GPIO"},
+ ADEC:{x:730,y:110,w:330,h:290,t:"Analog rail decoupling"},
+ USB:{x:1100,y:110,w:430,h:290,t:"USB 2.0 \u00b7 Type-C"},
+ AMP:{x:1580,y:110,w:250,h:220,t:"I2S amp"},
+ MIC:{x:1580,y:360,w:250,h:220,t:"I2S mic"},
+ AUDP:{x:1860,y:110,w:270,h:250,t:"Audio passives"},
+ SPKR:{x:2190,y:150,w:280,h:300,t:"Speaker"},
+ SD:{x:110,y:390,w:230,h:220,t:"microSD"},
+ SDP:{x:390,y:370,w:330,h:320,t:"SD0 passives"},
+ SOC:{x:790,y:440,w:600,h:540,t:""},
+ SD1P:{x:1450,y:560,w:270,h:340,t:"SD1 passives"},
+ WIFI:{x:1780,y:600,w:270,h:250,t:"WiFi"},
+ ANT:{x:2190,y:620,w:230,h:150,t:"Antenna"},
+ NOR:{x:110,y:660,w:230,h:190,t:"SPI NOR"},
+ NORP:{x:390,y:740,w:330,h:230,t:"NOR passives"},
+ XTAL:{x:1450,y:960,w:270,h:230,t:"25 MHz"},
+ STRAP:{x:110,y:1000,w:610,h:190,t:"Boot straps \u00b7 read at reset"},
+ VDDCD:{x:790,y:1010,w:600,h:170,t:"VDDC decoupling \u00b7 cascade"},
+ VDDQD:{x:790,y:1210,w:600,h:150,t:"VDDQ decoupling"},
+ REG:{x:1780,y:960,w:680,h:400,t:"Power tree"},
+ IO:{x:110,y:1230,w:610,h:230,t:"Debug \u00b7 buttons \u00b7 LEDs \u00b7 test points"}
+};
+
+const socL=[[1,"VSS18A_AUD","GND"],[2,"AUD_AINL_MIC","SPARE_AUD1_1V8"],[3,"AUD_AVREF","AUD_AVREF"],[4,"AUD_AOUTR","SPARE_AUD2_1V8"],
+[5,"VDD18A_AUD","VDD1V8"],[6,"SD0_CLK","SD0_CLK"],[7,"SD0_CMD","SD0_CMD"],[8,"SD0_D0","SD0_D0"],
+[9,"VDDC","VDDC"],[10,"SD0_D1","SD0_D1"],[11,"SD0_D2","SD0_D2"],[12,"SD0_D3","SD0_D3"],
+[13,"VDDIO_SD0","VDD3V3"],[14,"SD0_CD","SD0_CD"],[15,"SD0_PWR_EN","SD0_PWR_EN"],[16,"VDDC","VDDC"],
+[17,"SPK_EN","GPIO_A15"],[18,"UART0_TX","UART0_TX"],[19,"UART0_RX","UART0_RX"],
+[20,"SPINOR_HOLD","SPI_HOLD"],[21,"SPINOR_SCK","SPI_CLK"],[22,"SPINOR_MOSI","SPI_MOSI"]];
+const socB=[[23,"SPINOR_WP","SPI_WP"],[24,"SPINOR_MISO","SPI_MISO"],[25,"SPINOR_CS","SPI_CS"],
+[26,"JTAG_TMS","JTAG_TMS"],[27,"JTAG_TCK","JTAG_TCK"],[28,"IIC0_SCL","I2C0_SCL"],[29,"IIC0_SDA","I2C0_SDA"],
+[30,"AUX0","GPIO_AUX0"],[31,"VDDQ_DRAM","VDD1V35"],[32,"VDDQ","VDD1V35"],[33,"VDDQ","VDD1V35"],
+[34,"VDDQ_DRAM","VDD1V35"],[35,"PAD_ZQ","ZQ_TP"],[36,"VDDIO_RTC","VDD1V8"],[37,"VDDC_RTC","VDDC_RTC"],
+[38,"PWR_VBAT_DET","VBAT_DET"],[39,"PWR_RSTN","RESET_N"],[40,"PWR_SEQ1","SEQ1_TP"],[41,"PWR_SEQ2","PWR_SEQ2"],
+[42,"PTEST","GND"],[43,"PWR_WAKEUP0","WL_HOST_WAKE"],[44,"PWR_BUTTON1","BOOT_BTN"]];
+const socR=[[45,"XTAL_XIN","XTAL_XIN"],[46,"XTAL_XOUT","XTAL_XOUT"],[47,"PWR_GPIO0","WL_REG_ON"],
+[48,"PWR_GPIO1","AMP_SD_MODE"],[49,"PWR_GPIO2","SPARE_1V8"],[50,"VDDC","VDDC"],
+[51,"SD1_D3","SD1_D3"],[52,"SD1_D2","SD1_D2"],[53,"SD1_D1","SD1_D1"],[54,"SD1_D0","SD1_D0"],
+[55,"SD1_CMD","SD1_CMD"],[56,"SD1_CLK","SD1_CLK"],[57,"VDDIO_SD1","VDD3V3"],[58,"PWM0_BUCK","PWM0_BUCK"],
+[59,"ADC1","HDR_ADC1"],[60,"USB_VBUS_DET","USB_VBUS_DET"],[61,"VDDC","VDDC"],
+[62,"ETH_TXP \u00b7 IIS2_LRCK","I2S_LRCK"],[63,"ETH_TXM \u00b7 IIS2_BCLK","I2S_BCLK"],
+[64,"ETH_RXP \u00b7 IIS2_DO","I2S_DOUT"],[65,"ETH_RXM \u00b7 IIS2_DI","I2S_DIN"],
+[66,"VDD33A_ETH_USB","VDD3V3"]];
+const socT=[[67,"GPIO_RTX","CPU_SEL"],[68,"VDD18A_USB","VDD18A_USB"],[69,"USB_DP","USB_DP"],
+[70,"USB_DM","USB_DM"],[71,"VDDC","VDDC"]];
+const mipi=["MIPIRX4N","MIPIRX4P","MIPIRX3N","MIPIRX3P","MIPIRX2N","MIPIRX2P","MIPIRX1N","MIPIRX1P",
+"MIPIRX0N","MIPIRX0P",null,"MIPI_TXM2","MIPI_TXP2","MIPI_TXM1","MIPI_TXP1","MIPI_TXM0","MIPI_TXP0"];
+let hidx=0;
+for(let p=72;p<=88;p++){
+ if(p===82){socT.push([82,"VDD18A_MIPI","VDD1V8"]);continue;}
+ socT.push([p,mipi[p-72],p===88?"LPO":"HDR18_"+(hidx++)]);
+}
+
+const COMPS=[
+ {id:"U1",name:"SG2002",sub:"QFN88 \u00b7 9\u00d79 \u00b7 0.35 mm",zone:"SOC",soc:1,mpn:"SG2002",vf:"Thermal-pad stencil segmentation is unresolved. Never a single 6x6 aperture — target 50-70% coverage in a window-pane array. Confirm with your assembler.",
+  note:"RISC-V C906 1 GHz or Cortex-A53, plus a 700 MHz C906 and an 8051. 256 MB DDR3 in-package. The integrated 10/100 EPHY is NOT used \u2014 its four pads carry I2S instead (fmux function 7), and the block must be told to release them at bring-up. Pads 0.200 x 0.750 mm, thermal pad 6.000 x 6.000 mm — both confirmed from the vendor package definition.",
+  sides:{L:socL,B:socB,R:socR,T:socT}},
+ {id:"U2",name:"microSD",sub:"push-pull socket",zone:"SD",mpn:"Molex 5031821852",
+  note:"Boot device. 3.3 V fixed — UHS-I is impossible because SD0 shares its IO rail with eMMC.",
+  sides:{R:[[1,"CLK","SD0_CLK_SD"],[2,"CMD","SD0_CMD"],[3,"DAT0","SD0_D0"],[4,"DAT1","SD0_D1"],
+   [5,"DAT2","SD0_D2"],[6,"DAT3","SD0_D3"],[7,"CD","SD0_CD"],[8,"VDD","VDD3V3"],[9,"VSS","GND"]]}},
+ {id:"U3",name:"SPI NOR",sub:"16 MB \u00b7 SOP-8",zone:"NOR",mpn:"W25Q128JVSIQ(1T)",
+  note:"On Sophgo's validated flash list; the (1T) suffix is specified. The reference design uses a WSON package rather than SOP-8. To boot from this part instead of the card, fit R14 (pin 23 pull-down). Dropping the part entirely frees six 3.3 V pins.",
+  sides:{R:[[1,"CS","SPI_CS"],[2,"SO","SPI_MISO"],[3,"WP","SPI_WP"],[4,"GND","GND"],
+   [5,"SI","SPI_MOSI"],[6,"SCK","SPI_CLK_F"],[7,"HOLD","SPI_HOLD"],[8,"VCC","VDD3V3"]]}},
+ {id:"U4",name:"WiFi",sub:"SDIO \u00b7 2.4 GHz + BT",zone:"WIFI",mpn:"AP6212 (BCM43438A0)",
+  note:"The only SDIO module on Sophgo's validated list with a mainline driver (brcmfmac). Driver support is the real risk here, not the hardware.",
+  sides:{L:[[1,"CLK","SD1_CLK_W"],[2,"CMD","SD1_CMD"],[3,"D0","SD1_D0"],[4,"D1","SD1_D1"],
+   [5,"D2","SD1_D2"],[6,"D3","SD1_D3"],[7,"REG_ON","WL_REG_ON"],[8,"WAKE","WL_HOST_WAKE"]],
+   B:[[9,"VDD","WIFI_VDD"],[10,"GND","GND"]],R:[[11,"ANT","WIFI_ANT"],[12,"LDO_SW","WL_LDO_SW"],[13,"LDO_IN","WL_LDO_IN"],[14,"LPO","LPO"]]}},
+ {id:"U9",name:"I2S AMP",sub:"class-D \u00b7 3.3 V",zone:"AMP",mpn:"MAX98357AETE+T \u00b7 TQFN 3x3",
+  vf:"SoC \u2192 amp level margin is only +100 mV worst case: VOH 1.40 V against a 1.30 V ABSOLUTE VIH. Mitigated by setting DS=1 in the pinmux and by the 22R DNP footprints, and the real ~30 pF load at 3.072 MHz is far below the 4.0-7.4 mA test condition \u2014 but it is the thinnest margin on the board. Verify on the first article.",
+  note:"Pin numbers from the datasheet Pin Description p.15, not inferred. TWO VDD pins (7,8) and THREE GND pins (3,11,15) \u2014 connect them all. Pins 5, 6, 12, 13 are N.C. and must FLOAT; grounding them is a datasheet violation. The exposed pad is NOT internally connected \u2014 ground plane for thermal dissipation only, not a circuit ground. NOT the 1.345 x 1.435 mm WLP at 0.4 mm pitch \u2014 pick the TQFN. On VDD3V3 rather than VBUS_5V: 5 V only exists while USB-C is plugged and it is the noisiest rail, and 3.3 V satisfies the VDD > VDDIO condition so SD_MODE needs no series limiter. Supply capacitor as close to the part as the layout allows; amp input and output routing must not cross.",
+  sides:{L:[[16,"BCLK","I2S_BCLK_A"],[14,"LRCLK","I2S_LRCK_A"],[1,"DIN","I2S_DOUT"],[2,"GAIN","AMP_GAIN"],[4,"SD","SD_MODE_SET"]],
+   R:[[9,"OUT+","SPK_P"],[10,"OUT\u2212","SPK_N"],[5,"N.C.",null],[6,"N.C.",null],[12,"N.C.",null],[13,"N.C.",null]],
+   T:[[7,"VDD","VDD3V3"],[8,"VDD","VDD3V3"]],B:[[3,"GND","GND"],[11,"GND","GND"],[15,"GND","GND"]]}},
+ {id:"U10",name:"I2S MIC",sub:"MEMS \u00b7 1.8 V only",zone:"MIC",mpn:"INMP441",
+  vf:"The acoustic hole is unresolved. Bottom-port part \u2014 diameter and pad-ring rules must come from the recommended land pattern, and it drives a board cut-out plus enclosure work (discrete cavity, anti-vibration bushing). Also unresolved: Sophgo warn that an I2S amp degrades AEC, because the mic can only sample from behind the amp. Fine for playback and recording; a problem for full-duplex voice.",
+  note:"LGA-9, NOT 6 pins \u2014 pin numbers from datasheet Table 6 p.8. CHIPEN (pin 8) is held high through R60; low or floating puts the mic in power-down, which reads as a software fault. Decouple pin 7 to PIN 6 specifically, per the datasheet. MUST sit on VDD1V8. Its VIH is 0.7 x VDD, so at 3.3 V it would need 2.31 V and no 1.8 V pad can reach that. Chosen over the ICS-43434, whose VOH of 0.65 x VDD = 1.17 V is BELOW the SoC VIH of 1.26 V. BOTTOM-PORT: it needs an acoustic hole through the board \u2014 take the diameter and pad-ring rules from the recommended land pattern BEFORE placing it. Face it away from the speaker, or maximise the angle.",
+  sides:{L:[[1,"SCK","I2S_BCLK_A"],[3,"WS","I2S_LRCK_A"],[2,"SD","I2S_DIN"],[4,"L/R","GND"],[8,"CHIPEN","MIC_EN"]],
+   T:[[7,"VDD","VDD1V8"]],B:[[5,"GND","GND"],[6,"GND","GND"],[9,"GND","GND"]]}},
+ {id:"J6",name:"SPEAKER",sub:"JST-PH 2-pin",zone:"SPKR",mpn:"B2B-PH-K-S",
+  note:"8 ohm +/-15% for 1 W (4 ohm for 2 W), SPL >= 89 dB, F0 under 1 kHz, THD <= 10%, rear cavity. At least TWO vias on the direct run from the amp output to here. Designator J6 is a choice, not a given \u2014 J1 and J5 are both retired and recycling either would be confusing.",
+  sides:{L:[[1,"SP+","SPK_P"],[2,"SP\u2212","SPK_N"]]}},
+ {id:"J2",name:"USB-C",sub:"16-pin \u00b7 sink",zone:"USB",mpn:"TYPE-C-31-M-12",
+  note:"Sink only, no PD. CC1 and CC2 each need their own 5.1k — one shared resistor is a classic fatal error.",
+  sides:{B:[[1,"VBUS","VBUS_5V"],[2,"DP","USB_DP_C"],[3,"DM","USB_DM_C"],[4,"CC1","CC1"],[5,"CC2","CC2"],[6,"GND","GND"]]}},
+ {id:"D1",name:"ESD",sub:"USB array",zone:"USB",mpn:"USBLC6-2SC6",
+  note:"Parasitic capacitance under 5 pF per the design guide. Its ground pin needs a via straight to plane.",
+  sides:{L:[[1,"IO1","USB_DP_C"],[2,"IO2","USB_DM_C"]],B:[[3,"GND","GND"]]}},
+ {id:"J4",name:"HDR 3V3",sub:"9-pin on the PCB (was P4)",zone:"IO",
+  note:"After SD0, SPI NOR and UART0, only six 3.3 V pins remain on the entire device. MISMATCH: the PCB carries J4 as a 9-pin header (HDR1X9, renamed from P4); this drawing shows 8 and the 9th is unaccounted for. Confirm against the Altium schematic before trusting either.",
+  sides:{T:[[1,"SCL","I2C0_SCL"],[2,"SDA","I2C0_SDA"],[3,"TMS","JTAG_TMS"],[4,"TCK","JTAG_TCK"],
+   [5,"AUX0","GPIO_AUX0"],[6,"SPK","GPIO_A15"],[7,"3V3","VDD3V3"],[8,"GND","GND"]]}},
+ {id:"J5",name:"HDR 1V8",sub:"20-pin 2.54 mm",zone:"HDR18",
+  note:"NOT ON THE PCB. J5 was deleted from the board and the deletion was never confirmed as intentional \u2014 the 17 spare 1.8 V GPIO currently have no header at all. Kept here as a record of the intent. If it returns: one supply pin and TWO grounds, because one return for 17 signals is not enough, and mark the domain in silkscreen on both sides.",
+  sides:{B:(function(){var a=[];for(var i=0;i<17;i++)a.push([i+1,"IO"+i,"HDR18_"+i]);
+   a.push([18,"1V8","VDD1V8"]);a.push([19,"GND","GND"]);a.push([20,"GND","GND"]);return a;})()}},
+ {id:"J3",name:"UART0",sub:"4-pin \u00b7 115200",zone:"IO",
+  note:"You will use this constantly. Square pad on pin 1, clear silkscreen, accessible edge.",
+  sides:{T:[[1,"GND","GND"],[2,"TX","UART0_TX"],[3,"RX","UART0_RX"],[4,"3V3","VDD3V3"]]}},
+ {id:"Y1",name:"XTAL",sub:"25 MHz \u00b7 3225 4-pin",zone:"XTAL",mpn:"25 MHz \u00b130 ppm 12.5 pF",
+  note:"Mandatory. 4-pin package with both GND pins bonded to board ground for ESD immunity — confirmed as a real part in the reference BOM. Fully ground-shielded routing.",
+  sides:{T:[[1,"XI","XTAL_XIN"],[2,"XO","XTAL_XOUT"]],B:[[3,"G1","GND"],[4,"G2","GND"]]}},
+ {id:"E1",name:"u.FL",sub:"RF connector",zone:"ANT",mpn:"IPEX MHF-I",
+  note:"A swappable antenna beats a PCB antenna during debug, and the 50 ohm line is only a few mm.",
+  sides:{L:[[1,"RF","WIFI_ANT"]],B:[[2,"GND","GND"]]}},
+ {id:"U5",name:"BUCK",sub:"3.3 V / 1 A",zone:"REG",mpn:"ETA3414S2F",
+  note:"Enable gated by PWR_SEQ2, which drives 1.8 V into a 1.2 V max threshold — verified, no level shift needed. EN defaults low when floating, which is the safe state. 2.6-7 V input, 3 MHz, internal soft-start. Vout = 0.6 x (R1/R2 + 1).",
+  sides:{T:[[1,"EN","PWR_SEQ2"],[4,"VIN","VBUS_5V"]],R:[[3,"LX","LX_3V3"],[5,"FB","FB_3V3"]],B:[[2,"GND","GND"]]}},
+ {id:"U6",name:"BUCK",sub:"0.95 V / 1.5 A",zone:"REG",mpn:"ETA3414S2F",
+  vf:"NO CURRENT HEADROOM. The ETA3414 is rated 1.5 A max with a 1.6 A minimum current limit, and the core budget is about 1.48 A. The reference board does exactly this, but at full NPU load you are at the limit — and output foldbacks to 1.2 A below -25 C. Consider a 2 A+ part for the core rail.",
+  note:"Core rail. 1220 mA TPU plus 258 mA core is about 1.5 A. Internal soft-start; sequence so the core leads the 1.8 V LDO. The reference board's divider is set for 0.90 V — that is the CV181x value, not SG2002's.",
+  sides:{T:[[1,"EN","VBUS_5V"],[4,"VIN","VBUS_5V"]],R:[[3,"LX","LX_VDDC"],[5,"FB","FB_VDDC"]],B:[[2,"GND","GND"]]}},
+ {id:"U7",name:"BUCK",sub:"1.35 V / 1 A",zone:"REG",mpn:"ETA3414S2F",
+  note:"DDR3L VDDQ. An LDO here would burn 0.5 W. Enable uses RC soft-start, as the reference does.",
+  sides:{T:[[1,"EN","EN_1V35"],[4,"VIN","VBUS_5V"]],R:[[3,"LX","LX_1V35"],[5,"FB","FB_1V35"]],B:[[2,"GND","GND"]]}},
+ {id:"U8",name:"LDO",sub:"1.8 V / 300 mA",zone:"REG",mpn:"ETA5050V18S2F",
+  note:"Fixed 1.8 V, same part as the reference. Fed from 3.3 V — 1.5 V drop at 150 mA is 0.23 W. Enable uses RC soft-start.",
+  sides:{T:[[1,"VIN","VDD3V3"],[3,"EN","EN_1V8"]],R:[[5,"OUT","VDD1V8"]],B:[[2,"GND","GND"]]}}
+];
+
+const PASS=[
+ ["C1","C","100 nF 0402","VDDCD","VDDC","GND","Ring 1 — under the package body. Reference uses 0201 here to fit; on your larger board 0402 at a slightly greater radius is kinder to assembly. X5R/X7R only, Y5V prohibited."],
+ ["C6","C","100 nF 0402","VDDCD","VDDC","GND","Ring 1. Every cap needs its own adjacent GND via."],
+ ["C7","C","100 nF 0402","VDDCD","VDDC","GND","Ring 1."],
+ ["C2","C","1 uF 0402","VDDCD","VDDC","GND","Ring 2, still under or at the package edge."],
+ ["C3","C","1 uF 0402","VDDCD","VDDC","GND","Ring 2."],
+ ["C5","C","1 uF 0402","VDDCD","VDDC","GND","Ring 2."],
+ ["C4","C","4.7 uF 0402","VDDCD","VDDC","GND","Ring 3 — measured at 4.3-5.7 mm from the SoC centre on the reference."],
+ ["C8","C","4.7 uF 0402","VDDCD","VDDC","GND","Ring 3."],
+ ["C9","C","10 uF 0603","VDDCD","VDDC","GND","Bulk — belongs AT THE REGULATOR. Measured at 6.1 mm out on the reference, not at the chip."],
+ ["C10","C","10 uF 0603","VDDCD","VDDC","GND","Bulk at the regulator. 0603 not 0402: a 10 uF 0402 X5R derates to about 4 uF at bias."],
+ ["C11","C","100 nF 0402","VDDQD","VDD1V35","GND","DDR rail bypass. In-package DRAM still needs board-side decoupling."],
+ ["C12","C","100 nF 0402","VDDQD","VDD1V35","GND","DDR rail bypass."],
+ ["C13","C","1 uF 0402","VDDQD","VDD1V35","GND","DDR rail bypass."],
+ ["C14","C","4.7 uF 0402","VDDQD","VDD1V35","GND","DDR rail bypass."],
+ ["C15","C","4.7 uF 0402","VDDQD","VDD1V35","GND","DDR rail bypass."],
+ ["C16","C","10 uF 0603","VDDQD","VDD1V35","GND","Bulk. Ripple here is the first suspect when DDR init fails."],
+ ["C17","C","1 uF 0402","VDDQD","VDDC_RTC","GND","Pin 37 is an internal LDO output — capacitors only, never a supply."],
+ ["C18","C","100 nF 0402","VDDQD","VDDC_RTC","GND","Pin 37 decoupling."],
+ ["C59","C","1 uF 0402","VDDQD","AUD_AVREF","GND","SG2002 pin 3 is an internal audio reference — needs this cap whether or not audio is used."],
+ ["C20","C","100 nF 0402","ADEC","VDD1V8","GND","Audio analog bypass."],
+ ["FB2","FB","600R @100MHz","ADEC","VDD1V8","VDD18A_USB","Isolates the USB PHY and PLL domain. Survives the Ethernet removal \u2014 the PLL clocks the whole chip."],
+ ["C21","C","10 uF 0603","ADEC","VDD18A_USB","GND","USB / PLL / ETH analog bulk."],
+ ["C22","C","100 nF 0402","ADEC","VDD18A_USB","GND","USB / PLL / ETH analog bypass."],
+ ["C24","C","100 nF 0402","ADEC","VDD1V8","GND","MIPI domain bypass."],
+ ["C25","C","10 uF 0603","ADEC","VDD1V8","GND","RTC IO bulk. Also the reference for PWR_SEQ outputs and the CPU-select strap."],
+ ["C26","C","100 nF 0402","ADEC","VDD1V8","GND","RTC IO bypass."],
+ ["C28","C","100 nF 0402","ADEC","VDD3V3","GND","ETH / USB analog bypass."],
+ ["C29","C","10 uF 0603","ADEC","VDD3V3","GND","SD0 IO rail bulk."],
+ ["C30","C","100 nF 0402","ADEC","VDD3V3","GND","SD0 IO rail bypass."],
+ ["C31","C","10 uF 0603","ADEC","VDD3V3","GND","SD1 IO rail bulk."],
+ ["C32","C","100 nF 0402","ADEC","VDD3V3","GND","SD1 IO rail bypass."],
+ ["R1","R","22R 0402","SDP","SD0_CLK","SD0_CLK_SD","Series damping at the SoC end."],
+ ["R2","R","10k 0402","SDP","SD0_CMD","VDD3V3","SD command pull-up."],
+ ["R3","R","10k 0402","SDP","SD0_D0","VDD3V3","Data pull-up."],
+ ["R4","R","10k 0402","SDP","SD0_D1","VDD3V3","Data pull-up."],
+ ["R5","R","10k 0402","SDP","SD0_D2","VDD3V3","Data pull-up."],
+ ["R6","R","10k 0402","SDP","SD0_D3","VDD3V3","Data pull-up."],
+ ["R7","R","10k 0402","SDP","SD0_CD","VDD3V3","Card-detect pull-up."],
+ ["C33","C","10 uF 0603","SDP","VDD3V3","GND","Local bulk at the socket."],
+ ["C34","C","100 nF 0402","SDP","VDD3V3","GND","Local bypass at the socket."],
+ ["R8","R","22R 0402","NORP","SPI_CLK","SPI_CLK_F","Series damping. SPI_CLK is the one single-ended net needing individual ground shielding."],
+ ["R9","R","4.7k 0402","NORP","SPI_CS","VDD3V3","Chip-select pull-up — keeps the flash deselected through reset. Reference uses 4.7k (R31)."],
+ ["R10","R","4.7k 0402","NORP","SPI_HOLD","VDD3V3","HOLD# pull-up. Reference uses 4.7k (R32)."],
+ ["C35","C","100 nF 0402","NORP","VDD3V3","GND","Flash bypass, right at the VCC pin."],
+ ["C36","C","1 uF 0402","NORP","VDD3V3","GND","Flash local bulk."],
+ ["R11","R","4.7k 0402","STRAP","UART0_TX","VDD3V3","MANDATORY and populated. A pull-down puts the chip in ROM fail mode. Confirmed against the reference netlist (their R7)."],
+ ["R12","R","4.7k 0402","STRAP","UART0_RX","VDD3V3","The reference pulls RX up too (their R6). Populated."],
+ ["R13","R","4.7k DNP","STRAP","SPI_MOSI","VDD3V3","EMMC_DAT0 (pin 22) pull-UP. Redundant with the SoC's internal pull-up, so unpopulated by default. Both straps left open selects the eMMC/SD0 controller, which is how you boot from the card."],
+ ["R14","R","4.7k DNP","STRAP","SPI_WP","GND","EMMC_DAT3 (pin 23) pull-DOWN. Populate ONLY to boot from SPI NOR — the TRM requires DAT3 low and DAT0 high for NOR. Leave open for SD-card boot."],
+ ["R15","R","4.7k FIT","STRAP","CPU_SEL","VDD1V8","POPULATE THIS. Internal default is pull-down = Cortex-A53. The reference board leaves it empty and boots ARM. Fit the pull-up to get the C906 RISC-V core."],
+ ["R16","R","30k 1% 0402","STRAP","VBUS_5V","VBAT_DET","VBAT divider upper leg — 5 V through 30k/10k gives 1.25 V. Confirmed against the reference netlist."],
+ ["R17","R","10k 1% 0402","STRAP","VBAT_DET","GND","Lower leg. Shutdown below 1.0 V; the chip will not start with this floating."],
+ ["R18","R","22R 0402","SD1P","SD1_CLK","SD1_CLK_W","Series damping at the SoC end."],
+ ["R19","R","10k 0402","SD1P","SD1_CMD","VDD3V3","Command pull-up."],
+ ["R20","R","10k 0402","SD1P","SD1_D0","VDD3V3","Data pull-up."],
+ ["R21","R","10k 0402","SD1P","SD1_D1","VDD3V3","Data pull-up."],
+ ["R22","R","10k 0402","SD1P","SD1_D2","VDD3V3","Data pull-up."],
+ ["R23","R","10k 0402","SD1P","SD1_D3","VDD3V3","Data pull-up."],
+ ["R24","R","10k 0402","SD1P","WL_REG_ON","GND","Holds the module disabled until software enables it."],
+ ["R25","R","10k 0402","SD1P","WL_HOST_WAKE","GND","Host-wake pull-down."],
+ ["FB5","FB","600R @100MHz","SD1P","VDD3V3","WIFI_VDD","Isolates the module. WiFi TX bursts are the noisiest load on the board."],
+ ["C37","C","10 uF 0603","SD1P","WIFI_VDD","GND","Module bulk, sized for TX current bursts."],
+ ["C38","C","100 nF 0402","SD1P","WIFI_VDD","GND","Module bypass."],
+ ["L4","L","4.7 uH","SD1P","WL_LDO_SW","WL_LDO_IN","AP6212 internal buck inductor, pins 21 to 23. NOT a bypass — neither pin may touch a supply rail. Murata DFE252010P-4R7M."],
+ ["C58","C","10 uF 0603","SD1P","WL_LDO_IN","GND","Internal buck output cap on AP6212 pin 23."],
+ ["R58","R","22R 0402 DNP","AUDP","I2S_BCLK","I2S_BCLK_A","Series footprint near the SoC, DNP by default. Insurance against ringing into two loads on repurposed PHY pads."],
+ ["R59","R","22R 0402 DNP","AUDP","I2S_LRCK","I2S_LRCK_A","Series footprint near the SoC, DNP by default."],
+ ["R57","R","100k 0402","AUDP","I2S_DIN","GND","Pull-down on the SoC INPUT. Pads 62-65 sit outside the IO blocks, so no internal pull may be assumed. Stops the input floating when the mic is unpopulated or held in reset."],
+ ["R55","R","300k 0402","AUDP","AMP_SD_MODE","SD_MODE_SET","SD_MODE is a CHANNEL SELECTOR, not just an enable. 300k pull-up at 1.8 V = (L/2 + R/2) mono downmix. 69.8k gives RIGHT only, a direct logic high gives LEFT, low is shutdown. Internal 100k +/-8% pulldown. Getting this value wrong silently changes the channel."],
+ ["R60","R","0R 0402","AUDP","MIC_EN","VDD1V8","CHIPEN tie for the mic. Not optional \u2014 low or floating means the part is simply off. 0R rather than a hard trace keeps the option of jumpering to SoC pin 49 later for software power-down."],
+ ["R56","R","100k 0402 DNP","AUDP","AMP_GAIN","GND","GAIN_SLOT, and it is backwards from intuition: UNCONNECTED = 9 dB, to GND through 100k = 15 dB, direct to GND = 12 dB. DNP therefore gives 9 dB. Check the BOM marks it DNP \u2014 a wrong populate is 15 dB into an 8 ohm driver."],
+ ["C60","C","10 uF 0603","AUDP","VDD3V3","GND","Amplifier VDD bulk, as close to pins 7/8 as the layout allows. 0603 reuses a part already in the BOM."],
+ ["C61","C","100 nF 0402","AUDP","VDD3V3","GND","Amplifier VDD bypass, at the pin."],
+ ["C62","C","100 nF 0402","AUDP","VDD1V8","GND","Microphone VDD bypass. The datasheet asks for pin 7 to be decoupled to PIN 6 specifically."],
+ ["R37","R","5k1 0402","USB","CC1","GND","Type-C sink advertisement. CC1 and CC2 need SEPARATE resistors — sharing one is a classic fatal error."],
+ ["R38","R","5k1 0402","USB","CC2","GND","Second, independent CC pull-down."],
+ ["R39","R","5R1 0402","USB","USB_DP","USB_DP_C","Series damping at the CONNECTOR end per the design guide, not at the SoC."],
+ ["R40","R","5R1 0402","USB","USB_DM","USB_DM_C","Series damping at the connector end."],
+ ["R41","R","100k 0402","USB","VBUS_5V","USB_VBUS_DET","Upper leg of the VBUS sense divider — the detect pin is a 1.8 V input."],
+ ["R42","R","47k 0402","USB","USB_VBUS_DET","GND","Lower leg. Low means host, high means device."],
+ ["C41","C","10 uF 0603","USB","VBUS_5V","GND","Input bulk at the connector."],
+ ["C42","C","100 nF 0402","USB","VBUS_5V","GND","Input bypass."],
+ ["R43","R","1M 0402","XTAL","XTAL_XIN","XTAL_XOUT","The design guide states this cannot be omitted. Reference uses 1M (R8). Easy to leave off and hard to diagnose."],
+ ["C43","C","12 pF NP0","XTAL","XTAL_XIN","GND","Load capacitor. NP0/C0G only — X7R drifts and pulls the frequency. Reference uses 12 pF."],
+ ["C44","C","12 pF NP0","XTAL","XTAL_XOUT","GND","Load capacitor, NP0/C0G."],
+ ["L1","L","2.2 uH 2 A","REG","LX_3V3","VDD3V3","Keep the input cap to switch node to inductor loop tiny; it is the main EMI source. Reference part: WPN252012H2R2MT."],
+ ["R44","R","100k 1% 0402","REG","VDD3V3","FB_3V3","Upper FB leg. 0.6 x (100/22.6 + 1) = 3.26 V. Values lifted from the reference design."],
+ ["R45","R","22k6 1% 0402","REG","FB_3V3","GND","Lower FB leg."],
+ ["C45","C","22 uF 0805","REG","VBUS_5V","GND","Input bulk for the 3.3 V buck."],
+ ["C46","C","22 uF 0603","REG","VDD3V3","GND","Output bulk."],
+ ["L2","L","1.0 uH 4 A","REG","LX_VDDC","VDDC","Core rail inductor, rated for 1.5 A continuous with headroom. Reference part: WPN252012H1R0MT."],
+ ["R46","R","11k8 1% 0402","REG","VDDC","FB_VDDC","THE critical resistor. 0.6 x (11.8/20 + 1) = 0.954 V. The reference board fits 10k here, giving 0.90 V — that is the CV181x value and must not be copied."],
+ ["R47","R","20k 1% 0402","REG","FB_VDDC","GND","Lower FB leg."],
+ ["C47","C","22 uF 0805","REG","VBUS_5V","GND","Input bulk for the core buck."],
+ ["C48","C","22 uF 0603","REG","VDDC","GND","Core output bulk."],
+ ["L3","L","2.2 uH 2 A","REG","LX_1V35","VDD1V35","VDDQ inductor."],
+ ["R48","R","15k 1% 0402","REG","VDD1V35","FB_1V35","Upper FB leg. 0.6 x (15/12 + 1) = 1.35 V. Values lifted from the reference design."],
+ ["R49","R","12k 1% 0402","REG","FB_1V35","GND","Lower FB leg."],
+ ["C49","C","22 uF 0603","REG","VDD1V35","GND","VDDQ output bulk."],
+ ["R50","R","33k 0402","REG","VBUS_5V","EN_1V35","RC soft-start on the VDDQ enable, with C50. The reference uses 33k + 1 uF on this exact node."],
+ ["C50","C","1 uF 0402","REG","EN_1V35","GND","Soft-start timing cap."],
+ ["R51","R","33k 0402","REG","VDD3V3","EN_1V8","RC soft-start on the LDO enable, with C51. Reference uses 33k + 1 uF."],
+ ["C51","C","1 uF 0402","REG","EN_1V8","GND","Soft-start timing cap."],
+ ["C52","C","4.7 uF 0402","REG","VDD1V8","GND","LDO output capacitor."],
+ ["C53","C","100 nF 0402","REG","VDD1V8","GND","LDO output bypass."],
+ ["C54","C","22 uF 0805","REG","VBUS_5V","GND","System input bulk at the 5 V entry."],
+ ["R52","R","10k 0402","IO","RESET_N","VDD1V8","Reset pull-up."],
+ ["C55","C","100 nF 0402","IO","RESET_N","GND","Reset debounce."],
+ ["SW1","SW","reset","IO","RESET_N","GND","Momentary. PWR_RSTN, pin 39."],
+ ["SW2","SW","boot","IO","BOOT_BTN","GND","PWR_BUTTON1, pin 44 — already internally pulled up."],
+ ["R53","R","2k 0402","IO","VDD3V3","LED_PWR_A","Power LED ballast."],
+ ["LED1","LED","green 0603","IO","LED_PWR_A","GND","Power indicator."],
+ ["R54","R","1k 0402","IO","GPIO_AUX0","LED_USR_A","User LED ballast on a spare 3.3 V pin."],
+ ["LED2","LED","green 0603","IO","LED_USR_A","GND","User-controlled indicator."],
+ ["TP1","TP","ZQ","IO","ZQ_TP",null,"No external resistor on the reference board. First thing to probe when DDR init fails."],
+ ["TP2","TP","SEQ1","IO","SEQ1_TP",null,"Unused in an always-on topology. Test point only."],
+ ["TP3","TP","PWM0","IO","PWM0_BUCK",null,"Dynamic VDDC scaling. Reference fits a 40.2k injection resistor but leaves it unpopulated."],
+ ["TP4","TP","0.95 V","IO","VDDC",null,"Scope every rail on a slow ramp before the SoC is fitted."],
+ ["TP5","TP","1.35 V","IO","VDD1V35",null,"Rail test point."],
+ ["TP6","TP","1.8 V","IO","VDD1V8",null,"Rail test point."],
+ ["TP7","TP","3.3 V","IO","VDD3V3",null,"Rail test point — verify it rises only AFTER 1.8 V."],
+ ["TP8","TP","5 V","IO","VBUS_5V",null,"Input rail test point."]
+];
+
+const PW=64,PH=30,PGAP=14,packer={};
+function place(zone,w,h){
+ const z=ZONES[zone];
+ const st=packer[zone]||(packer[zone]={x:z.x+14,y:z.y+34,rowH:0});
+ if(st.x+w>z.x+z.w-10){st.x=z.x+14;st.y+=st.rowH+PGAP;st.rowH=0;}
+ const p={x:st.x,y:st.y};st.x+=w+PGAP;st.rowH=Math.max(st.rowH,h);return p;
+}
+COMPS.forEach(c=>{
+ if(!c.zone)return;const z=ZONES[c.zone];
+ if(c.soc){c.x=z.x;c.y=z.y;c.w=z.w;c.h=z.h;return;}
+ const w=Math.min(z.w-28,190),h=110,p=place(c.zone,w,h);
+ c.x=p.x;c.y=p.y;c.w=w;c.h=h;
+});
+PASS.forEach(function(row){
+ const p=place(row[3],PW,PH);
+ const c={id:row[0],kind:row[1],value:row[2],zone:row[3],note:row[6],passive:1,
+   dnp:/DNP/.test(row[2]),fit:/FIT/.test(row[2]),
+   x:p.x,y:p.y,w:PW,h:PH,sides:{L:[[1,"",row[4]]]}};
+ if(row[5])c.sides.R=[[2,"",row[5]]];
+ if(c.fit)c.vf="Populate this — the reference board leaves it empty and boots the wrong core.";
+ COMPS.push(c);
+});
+
+const DIRS={L:[-1,0],R:[1,0],T:[0,-1],B:[0,1]};
+const pinIndex={},nets={};
+COMPS.forEach(c=>{
+ c.pins=[];
+ Object.keys(c.sides||{}).forEach(side=>{
+  const arr=c.sides[side],n=arr.length;if(!n)return;
+  const horiz=(side==="L"||side==="R");
+  const span=horiz?c.h:c.w,start=horiz?c.y:c.x,step=span/(n+1);
+  arr.forEach((p,i)=>{
+   const o=start+step*(i+1);let x,y;
+   if(side==="L"){x=c.x;y=o;}else if(side==="R"){x=c.x+c.w;y=o;}
+   else if(side==="T"){x=o;y=c.y;}else{x=o;y=c.y+c.h;}
+   const pin={comp:c,ref:c.id,num:p[0],name:p[1],net:p[2],side:side,x:x,y:y,dir:DIRS[side]};
+   c.pins.push(pin);pinIndex[c.id+"."+p[0]]=pin;
+   if(p[2])(nets[p[2]]=nets[p[2]]||[]).push(pin);
+  });
+ });
+});
+
+const hash=s=>{let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return h;};
+const ESC=20;
+function routeNet(name,pins){
+ const esc=pins.map(p=>({p:p,x:p.x+p.dir[0]*ESC,y:p.y+p.dir[1]*ESC}));
+ const med=a=>{const s=a.slice().sort((u,v)=>u-v);return s[Math.floor(s.length/2)];};
+ const h=Math.abs(hash(name));
+ const hub={x:med(esc.map(e=>e.x))+((h%11)-5)*8,y:med(esc.map(e=>e.y))+(((h>>5)%11)-5)*8};
+ return {segs:esc.map(e=>{
+  const horiz=e.p.dir[0]!==0;
+  const bx=horiz?hub.x:e.x,by=horiz?e.y:hub.y;
+  return "M"+e.p.x+" "+e.p.y+" L"+e.x+" "+e.y+" L"+bx+" "+by+" L"+hub.x+" "+hub.y;}),hub:hub};
+}
+
+const NS="http://www.w3.org/2000/svg";
+const svg=document.getElementById("svg");
+const el=(t,a)=>{const n=document.createElementNS(NS,t);for(const k in(a||{}))n.setAttribute(k,a[k]);return n;};
+const gRoot=el("g"),gBoard=el("g"),gZone=el("g"),gWires=el("g"),gComps=el("g"),gLbls=el("g");
+gRoot.append(gBoard,gZone,gWires,gComps,gLbls);svg.append(gRoot);
+gBoard.append(el("rect",{class:"board",x:50,y:50,width:2500,height:1400,rx:16}));
+gBoard.append(el("rect",{fill:"none",stroke:"#2a2419","stroke-width":1,"stroke-dasharray":"5 5",x:70,y:70,width:2460,height:1360,rx:10}));
+[[84,64],[2516,64],[84,1436],[2516,1436]].forEach(p=>
+ gBoard.append(el("circle",{cx:p[0],cy:p[1],r:10,fill:"none",stroke:"#3a3226","stroke-width":1.2})));
+for(let x=170;x<2440;x+=38){
+ gBoard.append(el("circle",{cx:x,cy:50,r:5,fill:"#0e0c09",stroke:"#8a6f2e","stroke-width":1}));
+ gBoard.append(el("circle",{cx:x,cy:1450,r:5,fill:"#0e0c09",stroke:"#8a6f2e","stroke-width":1}));
+}
+const bt=el("text",{x:72,y:40,fill:"#5d5749","font-size":12,"letter-spacing":"0.2em"});
+bt.textContent="NANO-D1  \u00b7  66 \u00d7 38 mm  \u00b7  4-LAYER  \u00b7  MATTE BLACK + ENIG";gBoard.append(bt);
+Object.keys(ZONES).forEach(k=>{
+ const z=ZONES[k];if(!z.t)return;
+ const g=el("g",{class:"zone"});
+ g.append(el("rect",{x:z.x,y:z.y,width:z.w,height:z.h,rx:5}));
+ const t=el("text",{x:z.x+10,y:z.y+18});t.textContent=z.t;g.append(t);gZone.append(g);
+});
+const wireEls={};
+Object.keys(nets).forEach(name=>{
+ const pins=nets[name];if(pins.length<2)return;
+ const m=netMeta(name),col=LAYERS[m.L].color,r=routeNet(name,pins),arr=[];
+ r.segs.forEach(d=>{const p=el("path",{class:"wire",d:d,stroke:col,"data-net":name});gWires.append(p);arr.push(p);});
+ if(pins.length>2){const j=el("circle",{class:"jn",cx:r.hub.x,cy:r.hub.y,r:3.4,fill:col,"data-net":name});gWires.append(j);arr.push(j);}
+ const t=el("text",{class:"netlbl",x:r.hub.x+7,y:r.hub.y-6,fill:col,"data-net":name});t.textContent=name;gLbls.append(t);arr.push(t);
+ wireEls[name]=arr;
+});
+function symbol(c,g){
+ const cx=c.x+c.w/2,cy=c.y+c.h/2;
+ const S=(t,a)=>{a.class="sym";g.append(el(t,a));};
+ if(c.kind==="C"){S("line",{x1:cx-4,y1:cy-8,x2:cx-4,y2:cy+8});S("line",{x1:cx+4,y1:cy-8,x2:cx+4,y2:cy+8});
+  S("line",{x1:c.x,y1:cy,x2:cx-4,y2:cy});S("line",{x1:cx+4,y1:cy,x2:c.x+c.w,y2:cy});}
+ else if(c.kind==="R"){S("rect",{x:cx-14,y:cy-6,width:28,height:12,rx:1});
+  S("line",{x1:c.x,y1:cy,x2:cx-14,y2:cy});S("line",{x1:cx+14,y1:cy,x2:c.x+c.w,y2:cy});}
+ else if(c.kind==="L"||c.kind==="FB"){
+  S("path",{d:"M"+(cx-15)+" "+cy+" q4 -9 8 0 q4 -9 8 0 q4 -9 8 0 q4 -9 8 0"});
+  if(c.kind==="FB")S("rect",{x:cx-17,y:cy-10,width:34,height:15,rx:2,"stroke-dasharray":"3 2"});
+  S("line",{x1:c.x,y1:cy,x2:cx-15,y2:cy});S("line",{x1:cx+17,y1:cy,x2:c.x+c.w,y2:cy});}
+ else if(c.kind==="D"||c.kind==="LED"){
+  S("path",{d:"M"+(cx-7)+" "+(cy-7)+" L"+(cx+6)+" "+cy+" L"+(cx-7)+" "+(cy+7)+" Z"});
+  S("line",{x1:cx+6,y1:cy-7,x2:cx+6,y2:cy+7});
+  S("line",{x1:c.x,y1:cy,x2:cx-7,y2:cy});S("line",{x1:cx+6,y1:cy,x2:c.x+c.w,y2:cy});
+  if(c.kind==="LED"){S("line",{x1:cx+2,y1:cy-10,x2:cx+8,y2:cy-15});S("line",{x1:cx+7,y1:cy-8,x2:cx+13,y2:cy-13});}}
+ else if(c.kind==="SW"){S("line",{x1:c.x,y1:cy,x2:cx-8,y2:cy});S("line",{x1:cx-8,y1:cy,x2:cx+6,y2:cy-9});
+  S("line",{x1:cx+8,y1:cy,x2:c.x+c.w,y2:cy});S("circle",{cx:cx-8,cy:cy,r:1.8});S("circle",{cx:cx+8,cy:cy,r:1.8});}
+ else if(c.kind==="TP"){S("circle",{cx:cx,cy:cy,r:6});S("line",{x1:c.x,y1:cy,x2:cx-6,y2:cy});}
+ if(c.dnp){g.append(el("line",{class:"dnp",x1:cx-16,y1:cy-11,x2:cx+16,y2:cy+11}));
+          g.append(el("line",{class:"dnp",x1:cx-16,y1:cy+11,x2:cx+16,y2:cy-11}));}
+}
+COMPS.forEach(c=>{
+ const g=el("g",{class:"comp"+(c.soc?" soc":"")+(c.passive?" pas":"")+(c.vf?" vf":""),"data-comp":c.id});
+ g.append(el("rect",{class:"body",x:c.x,y:c.y,width:c.w,height:c.h,rx:c.passive?2:4}));
+ if(c.passive){
+  symbol(c,g);
+  const r=el("text",{class:"pref",x:c.x+2,y:c.y-3});r.textContent=c.id;g.append(r);
+  const v=el("text",{class:"pval",x:c.x+2,y:c.y+c.h+9});v.textContent=c.value;g.append(v);
+ }else{
+  const cx=c.x+c.w/2,cy=c.y+c.h/2;
+  const rf=el("text",{class:"cref",x:cx,y:cy-22,"text-anchor":"middle"});rf.textContent=c.id;
+  const nm=el("text",{class:"cname",x:cx,y:cy-4,"text-anchor":"middle"});nm.textContent=c.name;
+  const sb=el("text",{class:"csub",x:cx,y:cy+12,"text-anchor":"middle"});sb.textContent=c.sub;
+  g.append(rf,nm,sb);
+ }
+ c.pins.forEach(p=>{
+  const horiz=p.dir[0]!==0,pw=horiz?8:4,ph=horiz?4:8;
+  g.append(el("rect",{class:"pinpad"+(p.net?" conn":""),x:p.x-pw/2,y:p.y-ph/2,width:pw,height:ph,rx:1,
+   "data-net":p.net||"","data-pin":c.id+"."+p.num}));
+  if(p.name&&!c.passive){
+   const ox=p.dir[0]*12,oy=p.dir[1]*12;
+   const anc=p.side==="L"?"end":p.side==="R"?"start":"middle";
+   const lb=el("text",{class:"pinlbl",x:p.x+ox,y:p.y+oy+(horiz?2.5:(p.dir[1]<0?0:6)),"text-anchor":anc,
+    "data-pinlbl":c.id+"."+p.num});
+   if(!horiz)lb.setAttribute("transform","rotate(-90 "+(p.x+ox)+" "+(p.y+oy)+")");
+   lb.textContent=p.name;g.append(lb);
+  }
+  if(c.soc){const ix=-p.dir[0]*9,iy=-p.dir[1]*9;
+   const nn=el("text",{class:"pinnum",x:p.x+ix,y:p.y+iy+2.2,"text-anchor":"middle","data-pinnum":c.id+"."+p.num});
+   nn.textContent=p.num;g.append(nn);}
+ });
+ gComps.append(g);
+});
+
+const total=STACK.reduce((s,l)=>s+l.t,0),PX=340;
+const stackEl=document.getElementById("stack");
+STACK.forEach(l=>{
+ const d=document.createElement("div");
+ d.className="sl "+l.kind;
+ d.style.height=Math.max(13,(l.t/total)*PX)+"px";
+ if(l.kind==="cu")d.style.background=LAYERS[l.L].color;
+ d.innerHTML='<span>'+l.label+'</span><span class="dk">'+l.dk+'</span>';
+ if(l.kind==="cu"){d.tabIndex=0;d.setAttribute("role","button");
+  d.setAttribute("aria-label","Toggle "+LAYERS[l.L].name);
+  const t=()=>toggleLayer(l.L,d);d.onclick=t;
+  d.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();t();}};}
+ stackEl.append(d);
+});
+document.getElementById("legend").innerHTML=Object.keys(LAYERS).map(k=>{
+ const v=LAYERS[k];
+ return '<div><b style="color:'+v.color+'">\u25a0</b> <b>'+v.name+'</b> \u2014 '+v.role+'</div>';}).join("");
+const off=new Set();
+function toggleLayer(L,node){
+ off.has(L)?off.delete(L):off.add(L);
+ node.classList.toggle("off",off.has(L));
+ Object.keys(nets).forEach(n=>{
+  if(netMeta(n).L===L)(wireEls[n]||[]).forEach(e=>e.classList.toggle("hidden",off.has(L)));});
+}
+
+const tip=document.getElementById("tip"),cv=document.querySelector(".canvas");
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+function showTip(html,e,vf){
+ tip.innerHTML=html;tip.classList.add("on");tip.classList.toggle("vf",!!vf);
+ const r=cv.getBoundingClientRect();
+ let x=e.clientX-r.left+16,y=e.clientY-r.top+16;
+ if(x+322>r.width)x=Math.max(6,e.clientX-r.left-326);
+ if(y+tip.offsetHeight>r.height)y=Math.max(6,r.height-tip.offsetHeight-8);
+ tip.style.left=x+"px";tip.style.top=y+"px";
+}
+const hideTip=()=>tip.classList.remove("on");
+svg.addEventListener("pointermove",e=>{
+ if(drag){hideTip();return;}
+ const t=e.target;
+ if(t.dataset&&t.dataset.pin){
+  const p=pinIndex[t.dataset.pin],m=p.net?netMeta(p.net):null;
+  return showTip('<div class="tr">'+esc(p.ref)+' \u00b7 pin '+p.num+'</div>'+
+   '<div class="tv">'+esc(p.name||p.comp.value||"\u2014")+'</div>'+
+   (p.net?'<div class="tm" style="color:'+LAYERS[m.L].color+'">'+esc(p.net)+' \u00b7 '+LAYERS[m.L].name+'</div>':'<div class="tm">not connected</div>')+
+   (m&&m.rule?'<div class="tn">'+esc(m.rule)+'</div>':'')+
+   (m&&m.vf?'<div class="tvf">VERIFY \u2014 '+esc(m.vf)+'</div>':''),e,m&&m.vf);
+ }
+ if(t.dataset&&t.dataset.net){
+  const n=t.dataset.net,m=netMeta(n);
+  return showTip('<div class="tr" style="color:'+LAYERS[m.L].color+'">'+esc(n)+'</div>'+
+   '<div class="tv">'+LAYERS[m.L].name+' \u00b7 '+esc(m.dom)+'</div>'+
+   '<div class="tn">'+esc(m.rule)+'</div>'+
+   (m.vf?'<div class="tvf">VERIFY \u2014 '+esc(m.vf)+'</div>':'')+
+   '<div class="tnets">'+nets[n].length+' nodes \u2014 click to trace</div>',e,m.vf);
+ }
+ const g=t.closest&&t.closest(".comp");
+ if(g){
+  const c=COMPS.filter(x=>x.id===g.dataset.comp)[0];
+  if(c)return showTip('<div class="tr">'+esc(c.id)+'</div>'+
+   '<div class="tv">'+esc(c.value||c.name)+'</div>'+
+   (c.mpn?'<div class="tm">'+esc(c.mpn)+'</div>':(c.sub?'<div class="tm">'+esc(c.sub)+'</div>':''))+
+   (c.note?'<div class="tn">'+esc(c.note)+'</div>':'')+
+   (c.vf?'<div class="tvf">VERIFY \u2014 '+esc(c.vf)+'</div>':'')+
+   '<div class="tnets">'+c.pins.filter(p=>p.net).map(p=>esc(p.net)).join(" \u00b7 ")+'</div>',e,c.vf);
+ }
+ hideTip();
+});
+svg.addEventListener("pointerleave",hideTip);
+
+const insp=document.getElementById("insp");
+function clearSel(){document.querySelectorAll(".hot,.dim").forEach(e=>e.classList.remove("hot","dim"));renderEmpty();}
+function selectNet(name){
+ if(!nets[name])return;
+ document.querySelectorAll(".hot,.dim").forEach(e=>e.classList.remove("hot","dim"));
+ const pins=nets[name],comps=new Set(pins.map(p=>p.ref));
+ document.querySelectorAll(".wire,.jn,.netlbl").forEach(e=>e.classList.add(e.dataset.net===name?"hot":"dim"));
+ document.querySelectorAll(".comp").forEach(g=>g.classList.add(comps.has(g.dataset.comp)?"hot":"dim"));
+ pins.forEach(p=>{const k=p.ref+"."+p.num;
+  ["pin","pinlbl","pinnum"].forEach(a=>{
+   const n=document.querySelector('[data-'+a+'="'+k+'"]');if(n)n.classList.add("hot");});});
+ renderNet(name);
+}
+function selectComp(id){
+ const c=COMPS.filter(x=>x.id===id)[0];if(!c)return;
+ document.querySelectorAll(".hot,.dim").forEach(e=>e.classList.remove("hot","dim"));
+ const ns=new Set(c.pins.map(p=>p.net).filter(Boolean));
+ document.querySelectorAll(".comp").forEach(g=>g.classList.add(g.dataset.comp===id?"hot":"dim"));
+ document.querySelectorAll(".wire,.jn,.netlbl").forEach(e=>e.classList.add(ns.has(e.dataset.net)?"hot":"dim"));
+ renderComp(c,ns);
+}
+function renderNet(name){
+ const m=netMeta(name),lay=LAYERS[m.L],pins=nets[name];
+ const parts=new Set(pins.map(p=>p.ref));
+ insp.innerHTML='<div class="nethead"><h3 style="color:'+lay.color+'">'+esc(name)+'</h3>'+
+  '<span class="chip" style="background:'+lay.color+'">'+lay.name+'</span>'+
+  '<span class="chip ghost">'+esc(m.dom)+'</span>'+(m.vf?'<span class="chip vf">verify</span>':'')+'</div>'+
+  '<dl class="metagrid"><div><dt>Layer</dt><dd>'+lay.name+' \u2014 '+lay.role+'</dd></div>'+
+  '<div><dt>Nodes</dt><dd>'+pins.length+' pins \u00b7 '+parts.size+' parts</dd></div>'+
+  (m.pair?'<div><dt>Pair</dt><dd style="cursor:pointer;color:'+lay.color+'" data-goto="'+m.pair+'">'+esc(m.pair)+' \u2197</dd></div>':'')+
+  '</dl><div class="rulebox '+(m.warn?"warn":"")+'" style="color:'+lay.color+'">'+
+  '<strong>'+(m.warn?"Critical constraint":"Design rule")+'</strong><span>'+esc(m.rule)+'</span></div>'+
+  (m.vf?'<div class="rulebox vfbox"><strong>Open item</strong><span>'+esc(m.vf)+'</span></div>':'')+
+  '<h4 class="sec">Nodes</h4><ul class="conn">'+pins.map(p=>
+   '<li data-goto-comp="'+p.ref+'"><span class="ref">'+p.ref+'</span><span class="pn">'+p.num+'</span>'+
+   '<span class="nm">'+esc(p.name||p.comp.value||"")+'</span></li>').join("")+'</ul>';
+ wireUp();
+}
+function renderComp(c,ns){
+ insp.innerHTML='<div class="nethead"><h3 style="color:var(--gold)">'+esc(c.value||c.name)+'</h3>'+
+  '<span class="chip ghost">'+esc(c.id)+'</span>'+(c.vf?'<span class="chip vf">verify</span>':'')+'</div><dl class="metagrid">'+
+  (c.mpn?'<div><dt>Part</dt><dd>'+esc(c.mpn)+'</dd></div>':'')+
+  (c.sub?'<div><dt>Package</dt><dd>'+esc(c.sub)+'</dd></div>':'')+
+  '<div><dt>Zone</dt><dd>'+esc((ZONES[c.zone]||{}).t||c.zone||"\u2014")+'</dd></div>'+
+  '<div><dt>Pins</dt><dd>'+c.pins.length+' \u00b7 '+ns.size+' net'+(ns.size===1?'':'s')+'</dd></div></dl>'+
+  (c.note?'<div class="rulebox" style="color:var(--gold)"><strong>Note</strong><span>'+esc(c.note)+'</span></div>':'')+
+  (c.vf?'<div class="rulebox vfbox"><strong>Open item</strong><span>'+esc(c.vf)+'</span></div>':'')+
+  '<h4 class="sec">Pinout</h4><ul class="conn">'+c.pins.map(p=>{
+   const m=p.net?netMeta(p.net):null;
+   return '<li '+(p.net?'data-goto="'+p.net+'"':'')+'><span class="pn">'+p.num+'</span>'+
+    '<span class="nm">'+esc(p.name||"")+'</span><span class="ref" style="margin-left:auto;color:'+
+    (p.net?LAYERS[m.L].color:"var(--faint)")+'">'+esc(p.net||"NC")+'</span></li>';}).join("")+'</ul>';
+ wireUp();
+}
+function renderEmpty(){
+ const order=Object.keys(nets).filter(n=>nets[n].length>1).sort((a,b)=>nets[b].length-nets[a].length);
+ insp.innerHTML='<h2>Inspector</h2><p class="emptyi">Hover anything for its <b>value, part number and note</b>. '+
+  'Click a pin, wire or part to trace a net.<br><br>Wire colour is the copper layer. '+
+  '<b style="color:var(--amber)">Amber</b> marks the three items still to verify before fab.</p>'+
+  '<h4 class="sec">All nets \u2014 '+order.length+'</h4><ul class="netlist">'+order.map(n=>{
+   const m=netMeta(n);
+   return '<li data-goto="'+n+'"><span class="sw" style="background:'+LAYERS[m.L].color+'"></span>'+
+    esc(n)+'<span class="ct">'+nets[n].length+'</span></li>';}).join("")+'</ul>';
+ wireUp();
+}
+function wireUp(){
+ insp.querySelectorAll("[data-goto]").forEach(e=>e.onclick=()=>selectNet(e.dataset.goto));
+ insp.querySelectorAll("[data-goto-comp]").forEach(e=>e.onclick=()=>selectComp(e.dataset.gotoComp));
+}
+svg.addEventListener("click",e=>{
+ const t=e.target;
+ if(t.dataset&&t.dataset.net)return selectNet(t.dataset.net);
+ if(t.dataset&&t.dataset.pin){const p=pinIndex[t.dataset.pin];if(p&&p.net)return selectNet(p.net);}
+ const g=t.closest&&t.closest(".comp");
+ if(g)return selectComp(g.dataset.comp);
+ clearSel();
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")clearSel();});
+document.getElementById("clear").onclick=clearSel;
+
+let showPass=true;
+document.getElementById("tpass").onclick=function(){
+ showPass=!showPass;this.classList.toggle("on",showPass);
+ COMPS.filter(c=>c.passive).forEach(c=>{
+  const g=document.querySelector('[data-comp="'+c.id+'"]');
+  if(g)g.style.display=showPass?"":"none";});
+};
+document.getElementById("tvf").onclick=function(){
+ const vfc=COMPS.filter(c=>c.vf), vfn=Object.keys(NET).filter(n=>NET[n].vf);
+ insp.innerHTML='<h2>Open items</h2><p class="emptyi">Unresolved before fabrication. Everything else is sourced from the vendor documentation or measured from the reference board.</p>'+
+  '<h4 class="sec">Parts</h4><ul class="netlist">'+vfc.map(c=>
+   '<li data-goto-comp="'+c.id+'"><span class="sw" style="background:var(--amber)"></span>'+esc(c.id)+' \u2014 '+esc(c.value||c.name)+'</li>').join("")+'</ul>'+
+  (vfn.length?'<h4 class="sec">Nets</h4><ul class="netlist">'+vfn.map(n=>
+   '<li data-goto="'+n+'"><span class="sw" style="background:var(--amber)"></span>'+esc(n)+'</li>').join("")+'</ul>':'')+
+  '<div class="rulebox vfbox"><strong>The three</strong><span>1. SD0 boot fallback \u2014 TRM boot chapter.<br>2. PWR_SEQ2 driving a regulator EN at 1.8 V \u2014 check the threshold.<br>3. Thermal-pad stencil segmentation \u2014 ask your assembler.</span></div>';
+ wireUp();
+};
+document.getElementById("tbom").onclick=function(){
+ const grp={};
+ COMPS.forEach(c=>{
+  const v=c.value||c.mpn||c.name;if(!v)return;
+  (grp[v]=grp[v]||[]).push(c.id);
+ });
+ const keys=Object.keys(grp).sort((a,b)=>grp[b].length-grp[a].length);
+ insp.innerHTML='<h2>Bill of materials</h2><p class="emptyi">'+keys.length+' line items \u00b7 '+COMPS.length+' placed parts. DNP items are footprint-only.</p>'+
+  keys.map(k=>'<div class="bomrow"><span class="v">'+esc(k)+'</span><span class="q">'+grp[k].length+'</span><span class="d">'+esc(grp[k].join(", "))+'</span></div>').join("");
+};
+document.getElementById("q").addEventListener("input",e=>{
+ const q=e.target.value.trim().toUpperCase();
+ if(!q)return renderEmpty();
+ const nh=Object.keys(nets).filter(n=>nets[n].length>1&&n.toUpperCase().indexOf(q)>=0);
+ const ch=COMPS.filter(c=>(c.id+" "+(c.value||"")+" "+(c.name||"")+" "+(c.mpn||"")+" "+(c.note||"")).toUpperCase().indexOf(q)>=0);
+ insp.innerHTML='<h2>Matches</h2><p class="emptyi">'+nh.length+' net'+(nh.length===1?'':'s')+
+  ' \u00b7 '+ch.length+' part'+(ch.length===1?'':'s')+'</p>'+
+  (nh.length?'<h4 class="sec">Nets</h4><ul class="netlist">'+nh.map(n=>{const m=netMeta(n);
+   return '<li data-goto="'+n+'"><span class="sw" style="background:'+LAYERS[m.L].color+'"></span>'+
+    esc(n)+'<span class="ct">'+nets[n].length+'</span></li>';}).join("")+'</ul>':'')+
+  (ch.length?'<h4 class="sec">Parts</h4><ul class="netlist">'+ch.map(c=>
+   '<li data-goto-comp="'+c.id+'"><span class="sw" style="background:'+(c.vf?'var(--amber)':'var(--gold-dim)')+'"></span>'+
+   esc(c.id)+' \u2014 '+esc(c.value||c.name)+'</li>').join("")+'</ul>':'');
+ wireUp();
+});
+document.getElementById("s-comps").textContent=COMPS.length;
+document.getElementById("s-nets").textContent=Object.keys(nets).filter(n=>nets[n].length>1).length;
+document.getElementById("s-pins").textContent=Object.keys(pinIndex).length;
+document.getElementById("s-vf").textContent=COMPS.filter(c=>c.vf).length+Object.keys(NET).filter(n=>NET[n].vf).length;
+
+let vb={x:0,y:0,w:2600,h:1500};
+const apply=()=>svg.setAttribute("viewBox",vb.x+" "+vb.y+" "+vb.w+" "+vb.h);
+function zoomAt(f,cx,cy){
+ const nw=Math.min(5200,Math.max(400,vb.w*f)),nh=nw*(1500/2600);
+ vb.x=cx-(cx-vb.x)*(nw/vb.w);vb.y=cy-(cy-vb.y)*(nh/vb.h);vb.w=nw;vb.h=nh;apply();
+}
+const toSvg=(cx,cy)=>{const r=svg.getBoundingClientRect();
+ return [vb.x+(cx-r.left)/r.width*vb.w,vb.y+(cy-r.top)/r.height*vb.h];};
+svg.addEventListener("wheel",e=>{e.preventDefault();const c=toSvg(e.clientX,e.clientY);
+ zoomAt(e.deltaY>0?1.13:.885,c[0],c[1]);},{passive:false});
+let drag=null;
+svg.addEventListener("pointerdown",e=>{drag={x:e.clientX,y:e.clientY,vx:vb.x,vy:vb.y};
+ svg.classList.add("drag");svg.setPointerCapture(e.pointerId);hideTip();});
+svg.addEventListener("pointermove",e=>{if(!drag)return;const r=svg.getBoundingClientRect();
+ vb.x=drag.vx-(e.clientX-drag.x)/r.width*vb.w;vb.y=drag.vy-(e.clientY-drag.y)/r.height*vb.h;apply();});
+["pointerup","pointercancel","pointerleave"].forEach(t=>
+ svg.addEventListener(t,()=>{drag=null;svg.classList.remove("drag");}));
+document.getElementById("zin").onclick=()=>zoomAt(.8,vb.x+vb.w/2,vb.y+vb.h/2);
+document.getElementById("zout").onclick=()=>zoomAt(1.25,vb.x+vb.w/2,vb.y+vb.h/2);
+document.getElementById("zfit").onclick=()=>{vb={x:0,y:0,w:2600,h:1500};apply();};
+apply();renderEmpty();
+</script>

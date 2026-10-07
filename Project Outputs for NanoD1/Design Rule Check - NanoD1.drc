@@ -1,0 +1,173 @@
+Protel Design System Design Rule Check
+PCB File : C:\Users\nilot\Documents\Altium\NanoD1\NanoD1.PcbDoc
+Date     : 07-09-2026
+Time     : 12:03:43 AM
+
+Processing Rule : Clearance Constraint (Gap=0.254mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=0.1mm) (InComponent('U1')),(All)
+Rule Violations :0
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Modified Polygon (Allow modified: No), (Allow shelved: No)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.15mm) (Max=3mm) (Preferred=0.8mm) (InNetClass('PWR_3V3'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.15mm) (Max=2mm) (Preferred=0.5mm) (InNetClass('PWR_1V8'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.15mm) (Max=2mm) (Preferred=0.8mm) (InNetClass('PWR_5V'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.15mm) (Max=2mm) (Preferred=0.2mm) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.15mm) (Max=3mm) (Preferred=1.5mm) (InNetClass('PWR_CORE'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.15mm) (Max=3mm) (Preferred=1.5mm) (InNetClass('PWR_1V35'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.25mm) (Max=0.25mm) (Preferred=0.25mm) (InNetClass('XTAL'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.762mm) (Max=0.762mm) (Preferred=0.762mm) (InNetClass('RF'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.1mm) (Max=0.3mm) (Preferred=0.15mm) (InNetClass('SDIO'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.1mm) (Max=0.3mm) (Preferred=0.15mm) (InNetClass('SPINOR'))
+Rule Violations :0
+
+Processing Rule : Routing Topology Rule(Topology=Shortest) (All)
+Rule Violations :0
+
+Processing Rule : Routing Layers(All)
+Rule Violations :0
+
+Processing Rule : Routing Via (MinHoleWidth=0.3mm) (MaxHoleWidth=0.3mm) (PreferredHoleWidth=0.3mm) (MinWidth=0.6mm) (MaxWidth=0.6mm) (PreferedWidth=0.6mm) (All)
+Rule Violations :0
+
+Processing Rule : Differential Pairs Uncoupled Length using the Gap Constraints (Min=0.127mm) (Max=0.254mm) (Prefered=0.254mm)  and Width Constraints (Min=0.155mm) (Max=0.381mm) (Prefered=0.381mm) (Disabled)(InDifferentialPair('USB_CON'))
+Rule Violations :0
+
+Processing Rule : Differential Pairs Uncoupled Length using the Gap Constraints (Min=0.254mm) (Max=0.254mm) (Prefered=0.254mm)  and Width Constraints (Min=0.381mm) (Max=0.381mm) (Prefered=0.381mm) (All)
+Rule Violations :0
+
+Processing Rule : Differential Pairs Uncoupled Length using the Gap Constraints (Min=0.15mm) (Max=0.25mm) (Prefered=0.187mm)  and Width Constraints (Min=0.13mm) (Max=0.2mm) (Prefered=0.155mm) (InDifferentialPair('USB_CON'))
+Rule Violations :0
+
+Processing Rule : Differential Pairs Uncoupled Length using the Gap Constraints (Min=0.6mm) (Max=0.65mm) (Prefered=0.616mm)  and Width Constraints (Min=0.2mm) (Max=0.25mm) (Prefered=0.203mm) (InDifferentialPair('USB_MID'))
+Rule Violations :0
+
+Processing Rule : Differential Pairs Uncoupled Length using the Gap Constraints (Min=0.127mm) (Max=0.254mm) (Prefered=0.254mm)  and Width Constraints (Min=0.155mm) (Max=0.381mm) (Prefered=0.381mm) (Disabled)(InDifferentialPair('USB_SOC'))
+Rule Violations :0
+
+Processing Rule : Differential Pairs Uncoupled Length using the Gap Constraints (Min=0.127mm) (Max=0.254mm) (Prefered=0.254mm)  and Width Constraints (Min=0.155mm) (Max=0.381mm) (Prefered=0.381mm) (Disabled)(InDifferentialPair('USB_MID'))
+Rule Violations :0
+
+Processing Rule : Differential Pairs Uncoupled Length using the Gap Constraints (Min=0.15mm) (Max=0.25mm) (Prefered=0.187mm)  and Width Constraints (Min=0.13mm) (Max=0.2mm) (Prefered=0.155mm) (InDifferentialPair('USB_SOC'))
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Minimum Annular Ring (Minimum=0.12mm) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=0.25mm) (Max=3.5mm) (All)
+Rule Violations :0
+
+Processing Rule : Pads and Vias to follow the Drill pairs settings
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=0.254mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=0.05mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Silk To Solder Mask (Clearance=0.1mm) (IsPad),(All)
+   Violation between Silk To Solder Mask Clearance Constraint: (0.04mm < 0.1mm) Between Pad J2-A1(37.975mm,31.79mm) on Multi-Layer And Track (37.938mm,31.375mm)(41.437mm,31.375mm) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0.04mm]
+   Violation between Silk To Solder Mask Clearance Constraint: (Collision < 0.1mm) Between Pad J2-A1(37.975mm,31.79mm) on Multi-Layer And Track (38.062mm,31.5mm)(41.313mm,31.5mm) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mm]
+   Violation between Silk To Solder Mask Clearance Constraint: (Collision < 0.1mm) Between Pad J2-A1(37.975mm,31.79mm) on Multi-Layer And Track (38.188mm,31.562mm)(41.25mm,31.562mm) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mm]
+   Violation between Silk To Solder Mask Clearance Constraint: (Collision < 0.1mm) Between Pad J2-A1(37.975mm,31.79mm) on Multi-Layer And Track (38.25mm,31.625mm)(41.187mm,31.625mm) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mm]
+   Violation between Silk To Solder Mask Clearance Constraint: (Collision < 0.1mm) Between Pad J2-A1(37.975mm,31.79mm) on Multi-Layer And Track (38mm,31.438mm)(41.375mm,31.438mm) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mm]
+   Violation between Silk To Solder Mask Clearance Constraint: (0.019mm < 0.1mm) Between Pad J2-S3(39.325mm,32.77mm) on Multi-Layer And Track (38.062mm,31.5mm)(41.313mm,31.5mm) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0.019mm]
+   Violation between Silk To Solder Mask Clearance Constraint: (Collision < 0.1mm) Between Pad J2-S3(39.325mm,32.77mm) on Multi-Layer And Track (38.188mm,31.562mm)(41.25mm,31.562mm) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mm]
+   Violation between Silk To Solder Mask Clearance Constraint: (Collision < 0.1mm) Between Pad J2-S3(39.325mm,32.77mm) on Multi-Layer And Track (38.25mm,31.625mm)(41.187mm,31.625mm) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mm]
+   Violation between Silk To Solder Mask Clearance Constraint: (Collision < 0.1mm) Between Pad J2-S3(39.325mm,32.77mm) on Multi-Layer And Track (38.5mm,31.688mm)(41.063mm,31.688mm) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mm]
+   Violation between Silk To Solder Mask Clearance Constraint: (0.082mm < 0.1mm) Between Pad J2-S3(39.325mm,32.77mm) on Multi-Layer And Track (38mm,31.438mm)(41.375mm,31.438mm) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0.082mm]
+   Violation between Silk To Solder Mask Clearance Constraint: (Collision < 0.1mm) Between Pad J2-S3(39.325mm,32.77mm) on Multi-Layer And Track (39.312mm,31.75mm)(41mm,31.75mm) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mm]
+Rule Violations :11
+
+Processing Rule : Silk to Silk (Clearance=0.15mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Net Antennae (Tolerance=0mm) (All)
+Rule Violations :0
+
+Processing Rule : Component Clearance Constraint ( Horizontal Gap = 0.254mm, Vertical Gap = 0.254mm ) (All),(All) 
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)
+Rule Violations :0
+
+Processing Rule : Supply Net(s)(InNet('WL_LDO_IN'))
+Rule Violations :0
+
+Processing Rule : Supply Net(s)(InNet('VBAT_DET'))
+Rule Violations :0
+
+Processing Rule : Supply Net(s)(InNet('WIFI_VDD'))
+Rule Violations :0
+
+Processing Rule : Supply Net(s)(InNet('VBUS_5V'))
+Rule Violations :0
+
+Processing Rule : Supply Net(s)(InNet('VDD3V3'))
+Rule Violations :0
+
+Processing Rule : Supply Net(s)(InNet('UART0_TX'))
+Rule Violations :0
+
+Processing Rule : Supply Net(s)(InNet('LPO'))
+Rule Violations :0
+
+Processing Rule : Supply Net(s)(InNet('VDD18A_USB'))
+Rule Violations :0
+
+Processing Rule : Supply Net(s)(InNet('VDDC_RTC'))
+Rule Violations :0
+
+Processing Rule : Supply Net(s)(InNet('VDD1V8'))
+Rule Violations :0
+
+Processing Rule : Supply Net(s)(InNet('UART0_RX'))
+Rule Violations :0
+
+Processing Rule : Supply Net(s)(InNet('VDDC'))
+Rule Violations :0
+
+Processing Rule : Supply Net(s)(InNet('VDD1V35'))
+Rule Violations :0
+
+Processing Rule : Supply Net(s)(InNet('PWR_SEQ2'))
+Rule Violations :0
+
+Processing Rule : Supply Net(s)(InNet('GND'))
+Rule Violations :0
+
+
+Violations Detected : 11
+Waived Violations : 0
+Time Elapsed        : 00:00:11

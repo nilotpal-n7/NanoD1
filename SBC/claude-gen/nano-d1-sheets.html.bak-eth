@@ -1,0 +1,725 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nano-D1 — Schematic Sheets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--pap:#f4f1e8;--ink0:#16140f;--ink1:#3a352b;--mute:#8a8272;--rule:#c9c2af;
+ --wire:#1b3a6b;--lbl:#8a2f1f;--pwr:#1f6b4a;--off:#7a3fa8;--hot:#d4571c;
+ --disp:"Barlow Condensed",Oswald,"Arial Narrow",sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:#211e18;color:var(--ink0);font-family:var(--mono);font-size:13px;
+ overflow:hidden;display:grid;grid-template-rows:auto auto 1fr;height:100vh}
+header{display:flex;background:linear-gradient(180deg,#2b2820,#201d17);border-bottom:1px solid #3d382d;color:#ece5d4}
+.brand{padding:8px 15px;border-right:1px solid #3d382d}
+.brand h1{font-family:var(--disp);font-size:20px;font-weight:700;letter-spacing:.06em;margin:0;text-transform:uppercase;color:#d4a843}
+.brand span{font-size:9px;color:#8d8574;letter-spacing:.14em;text-transform:uppercase}
+.htools{flex:1;display:flex;align-items:center;gap:8px;padding:0 14px;min-width:0}
+.htools input{flex:1;min-width:0;max-width:300px;background:#141209;border:1px solid #3d382d;color:#ece5d4;
+ font-family:var(--mono);font-size:12px;padding:6px 9px;border-radius:3px;outline:none}
+.htools button{background:none;border:1px solid #3d382d;color:#8d8574;font-family:var(--mono);
+ font-size:10.5px;padding:6px 9px;border-radius:3px;cursor:pointer;white-space:nowrap}
+.htools button:hover{border-color:#8a6f2e;color:#d4a843}
+.htools button.on{border-color:#d4a843;color:#d4a843;background:#332b18}
+nav{display:flex;background:#1a1813;border-bottom:1px solid #3d382d;overflow-x:auto}
+nav button{background:none;border:none;border-right:1px solid #2c2820;color:#8d8574;
+ font-family:var(--disp);font-size:14px;letter-spacing:.09em;text-transform:uppercase;
+ padding:9px 15px;cursor:pointer;white-space:nowrap}
+nav button:hover{color:#ece5d4;background:#242019}
+nav button.act{color:#16140f;background:var(--pap);font-weight:600}
+nav button .n{font-family:var(--mono);font-size:9px;opacity:.55;margin-left:5px}
+.shell{display:grid;grid-template-columns:1fr 320px;min-height:0}
+@media(max-width:1100px){.shell{grid-template-columns:1fr}.side{display:none}}
+.paper{position:relative;overflow:hidden;background:var(--pap)}
+svg{width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+svg.drag{cursor:grabbing}
+.hint{position:absolute;left:12px;bottom:10px;font-size:9.5px;color:var(--mute);
+ background:rgba(244,241,232,.94);border:1px solid var(--rule);padding:4px 8px;border-radius:2px;pointer-events:none}
+.zoomer{position:absolute;right:10px;bottom:10px;display:flex;gap:4px}
+.zoomer button{width:26px;height:26px;background:rgba(244,241,232,.96);border:1px solid var(--rule);
+ color:var(--ink1);border-radius:2px;cursor:pointer;font-family:var(--mono);font-size:12px}
+.zoomer button:hover{border-color:var(--hot);color:var(--hot)}
+#tip{position:absolute;pointer-events:none;z-index:20;width:295px;background:#16140f;color:#ece5d4;
+ border:1px solid #d4a843;border-radius:3px;padding:8px 10px;font-size:10.5px;line-height:1.55;
+ box-shadow:0 6px 22px rgba(0,0,0,.5);opacity:0;transition:opacity .12s}
+#tip.on{opacity:1}
+#tip .tr{font-family:var(--disp);font-size:15px;font-weight:600;color:#d4a843;line-height:1.1}
+#tip .tv{font-size:11.5px;margin-top:1px}
+#tip .tn{margin-top:6px;padding-top:5px;border-top:1px solid #3d382d;color:#cfc7b3;font-size:10px}
+.bdr{fill:none;stroke:var(--ink1);stroke-width:1.4}
+.tb text{font-family:var(--mono);fill:var(--ink1)}
+.tb .big{font-family:var(--disp);font-size:19px;font-weight:700;letter-spacing:.05em}
+.sym{fill:none;stroke:var(--ink0);stroke-width:1.5;stroke-linecap:round}
+.symf{fill:var(--ink0);stroke:none}
+.icbox{fill:#fdfbf4;stroke:var(--ink0);stroke-width:1.5}
+.socbox{fill:#fbf7ea;stroke:var(--ink0);stroke-width:2}
+.pinl{stroke:var(--ink0);stroke-width:1.2}
+.ref{font-family:var(--mono);font-size:9.5px;fill:var(--ink0);font-weight:700}
+.val{font-family:var(--mono);font-size:9px;fill:var(--ink1)}
+.pn{font-family:var(--mono);font-size:7px;fill:var(--mute)}
+.pname{font-family:var(--mono);font-size:8px;fill:var(--ink1)}
+.icname{font-family:var(--disp);font-size:13px;font-weight:600;fill:var(--ink0);letter-spacing:.04em}
+.wire{stroke:var(--wire);stroke-width:1.6;fill:none;stroke-linecap:round;cursor:pointer}
+.wire:hover{stroke:var(--hot);stroke-width:2.4}
+.nl{font-family:var(--mono);font-size:8.5px;fill:var(--lbl);cursor:pointer;font-weight:700}
+.pp{stroke:var(--pwr);stroke-width:1.6;fill:none}
+.ppt{font-family:var(--mono);font-size:8px;fill:var(--pwr);font-weight:700}
+.offp{fill:#f6eefc;stroke:var(--off);stroke-width:1.2;cursor:pointer}
+.offt{font-family:var(--mono);font-size:8px;fill:var(--off);font-weight:700;pointer-events:none}
+.wire.hot{stroke:var(--hot);stroke-width:2.6}
+.nl.hot{fill:var(--hot)}.offp.hot{stroke:var(--hot);fill:#fdeee4}.offt.hot{fill:var(--hot)}
+.pp.hot{stroke:var(--hot)}.ppt.hot{fill:var(--hot)}
+.dim{opacity:.16}
+.xs .offp{stroke:var(--hot);stroke-width:2}.xs .offt{fill:var(--hot)}
+.cbox{cursor:pointer}
+.cbox.hot .icbox,.cbox.hot .socbox{stroke:var(--hot);stroke-width:2.4}
+.cbox.hot .sym{stroke:var(--hot)}.cbox.hot .ref{fill:var(--hot)}
+.side{background:#201d17;border-left:1px solid #3d382d;overflow-y:auto;padding:12px 12px 40px;color:#ece5d4}
+.side h2{font-family:var(--disp);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8d8574;margin:0 0 6px;font-weight:600}
+.side p{font-size:10.5px;color:#8d8574;line-height:1.7;margin:0 0 12px}
+.side p b{color:#cfc7b3;font-weight:500}
+.nethead{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.nethead h3{font-family:var(--disp);font-size:23px;font-weight:700;margin:0;color:#d4a843;line-height:1;word-break:break-all}
+.chip{font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;padding:2px 6px;border-radius:2px;background:#3d382d;color:#cfc7b3}
+.chip.x{background:var(--off);color:#fff}
+dl.m{margin:10px 0 0;border-top:1px solid #3d382d}
+dl.m div{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid #2c2820;font-size:10.5px}
+dl.m dt{color:#6d6553;min-width:60px;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em}
+dl.m dd{margin:0;color:#ece5d4;line-height:1.5}
+.note{margin-top:10px;padding:8px;border:1px solid #3d382d;border-left:2px solid #d4a843;
+ font-size:10px;line-height:1.6;background:#1a1813;border-radius:2px;color:#cfc7b3}
+.note.warn{border-left-color:var(--hot)}
+h4.sec{font-family:var(--disp);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#8d8574;margin:14px 0 4px;font-weight:600}
+ul.l{list-style:none;margin:0;padding:0}
+ul.l li{display:flex;gap:6px;padding:4px;font-size:10px;border-bottom:1px solid #2c2820;cursor:pointer;align-items:baseline}
+ul.l li:hover{background:#282318}
+ul.l li .r{color:#d4a843;min-width:32px;font-weight:600}
+ul.l li .s{margin-left:auto;color:#6d6553;font-size:9px}
+:focus-visible{outline:2px solid #d4a843;outline-offset:2px}
+</style>
+
+<header>
+  <div class="brand"><h1>Nano-D1</h1><span>Schematic sheets</span></div>
+  <div class="htools">
+    <input id="q" placeholder="Search nets and parts">
+    <button id="bx">Cross-sheet</button>
+    <button id="bc">Clear</button>
+  </div>
+</header>
+<nav id="nav"></nav>
+<div class="shell">
+  <div class="paper">
+    <svg id="sv" viewBox="0 0 1700 1150" preserveAspectRatio="xMidYMid meet"></svg>
+    <div id="tip"></div>
+    <div class="hint">Click a wire, label or part to trace · drag to pan · scroll to zoom · Esc clears</div>
+    <div class="zoomer"><button id="zi">+</button><button id="zo">−</button><button id="zf">⤢</button></div>
+  </div>
+  <aside class="side" id="side"></aside>
+</div>
+
+<script>
+const S=18;
+function pinsFor(kind,rot){
+  if(kind==='R'||kind==='FB')return rot==='H'?{A:[-30,0,'L'],B:[30,0,'R']}:{A:[0,-30,'U'],B:[0,30,'D']};
+  if(kind==='C')return rot==='H'?{A:[-26,0,'L'],B:[26,0,'R']}:{A:[0,-26,'U'],B:[0,26,'D']};
+  if(kind==='L')return rot==='H'?{A:[-32,0,'L'],B:[32,0,'R']}:{A:[0,-32,'U'],B:[0,32,'D']};
+  if(kind==='D'||kind==='LED')return rot==='H'?{A:[-26,0,'L'],K:[26,0,'R']}:{A:[0,-26,'U'],K:[0,26,'D']};
+  if(kind==='SW')return {A:[-30,0,'L'],B:[30,0,'R']};
+  if(kind==='TP')return {A:[0,20,'D']};
+  if(kind==='XTAL')return {XI:[-32,0,'L'],XO:[32,0,'R'],G1:[-14,26,'D'],G2:[14,26,'D']};
+  return {};
+}
+function drawSym(c){
+  const k=c.kind,g=[],P=d=>g.push(d);
+  if(k==='R'||k==='FB'){const dash=k==='FB'?' stroke-dasharray="3 2"':'';
+    if(c.rot==='H'){P(`<rect class="sym" x="-16" y="-7" width="32" height="14"${dash}/>`);
+      P(`<line class="pinl" x1="-30" y1="0" x2="-16" y2="0"/><line class="pinl" x1="16" y1="0" x2="30" y2="0"/>`);}
+    else{P(`<rect class="sym" x="-7" y="-16" width="14" height="32"${dash}/>`);
+      P(`<line class="pinl" x1="0" y1="-30" x2="0" y2="-16"/><line class="pinl" x1="0" y1="16" x2="0" y2="30"/>`);}
+  } else if(k==='C'){
+    if(c.rot==='H'){P(`<line class="sym" x1="-4" y1="-11" x2="-4" y2="11"/><line class="sym" x1="4" y1="-11" x2="4" y2="11"/>`);
+      P(`<line class="pinl" x1="-26" y1="0" x2="-4" y2="0"/><line class="pinl" x1="4" y1="0" x2="26" y2="0"/>`);}
+    else{P(`<line class="sym" x1="-11" y1="-4" x2="11" y2="-4"/><line class="sym" x1="-11" y1="4" x2="11" y2="4"/>`);
+      P(`<line class="pinl" x1="0" y1="-26" x2="0" y2="-4"/><line class="pinl" x1="0" y1="4" x2="0" y2="26"/>`);}
+  } else if(k==='L'){
+    if(c.rot==='H'){P(`<path class="sym" d="M-18 0 q4.5 -10 9 0 q4.5 -10 9 0 q4.5 -10 9 0 q4.5 -10 9 0"/>`);
+      P(`<line class="pinl" x1="-32" y1="0" x2="-18" y2="0"/><line class="pinl" x1="18" y1="0" x2="32" y2="0"/>`);}
+    else{P(`<path class="sym" d="M0 -18 q10 4.5 0 9 q10 4.5 0 9 q10 4.5 0 9 q10 4.5 0 9"/>`);
+      P(`<line class="pinl" x1="0" y1="-32" x2="0" y2="-18"/><line class="pinl" x1="0" y1="18" x2="0" y2="32"/>`);}
+  } else if(k==='D'||k==='LED'){
+    if(c.rot==='H'){P(`<path class="symf" d="M-9 -9 L7 0 L-9 9 Z"/><line class="sym" x1="7" y1="-9" x2="7" y2="9"/>`);
+      P(`<line class="pinl" x1="-26" y1="0" x2="-9" y2="0"/><line class="pinl" x1="7" y1="0" x2="26" y2="0"/>`);}
+    else{P(`<path class="symf" d="M-9 -8 L9 -8 L0 8 Z"/><line class="sym" x1="-9" y1="8" x2="9" y2="8"/>`);
+      P(`<line class="pinl" x1="0" y1="-26" x2="0" y2="-8"/><line class="pinl" x1="0" y1="8" x2="0" y2="26"/>`);}
+    if(k==='LED'){P(`<line class="sym" x1="10" y1="-12" x2="17" y2="-19"/><line class="sym" x1="15" y1="-9" x2="22" y2="-16"/>`);}
+  } else if(k==='SW'){
+    P(`<line class="pinl" x1="-30" y1="0" x2="-11" y2="0"/><line class="pinl" x1="11" y1="0" x2="30" y2="0"/>`);
+    P(`<circle class="sym" cx="-11" cy="0" r="2.4"/><circle class="sym" cx="11" cy="0" r="2.4"/>`);
+    P(`<line class="sym" x1="-11" y1="0" x2="10" y2="-12"/><line class="sym" x1="-4" y1="-13" x2="4" y2="-13"/>`);
+  } else if(k==='TP'){
+    P(`<circle class="sym" cx="0" cy="0" r="6"/><line class="pinl" x1="0" y1="6" x2="0" y2="20"/>`);
+  } else if(k==='XTAL'){
+    P(`<rect class="sym" x="-7" y="-11" width="14" height="22"/>`);
+    P(`<line class="sym" x1="-13" y1="-12" x2="-13" y2="12"/><line class="sym" x1="13" y1="-12" x2="13" y2="12"/>`);
+    P(`<line class="pinl" x1="-32" y1="0" x2="-13" y2="0"/><line class="pinl" x1="13" y1="0" x2="32" y2="0"/>`);
+    P(`<line class="pinl" x1="-14" y1="11" x2="-14" y2="26"/><line class="pinl" x1="14" y1="11" x2="14" y2="26"/>`);
+  }
+  return g.join('');
+}
+function icPins(d){
+  const p={},put=(arr,side)=>{
+    const n=arr.length;if(!n)return;
+    const horiz=(side==='L'||side==='R'),span=horiz?d.h:d.w,step=span/(n+1);
+    arr.forEach((e,i)=>{const o=-span/2+step*(i+1);
+      if(side==='L')p[e[1]]=[-d.w/2-S,o,'L',e[0]];
+      else if(side==='R')p[e[1]]=[d.w/2+S,o,'R',e[0]];
+      else if(side==='T')p[e[1]]=[o,-d.h/2-S,'U',e[0]];
+      else p[e[1]]=[o,d.h/2+S,'D',e[0]];});
+  };
+  put(d.L||[],'L');put(d.R||[],'R');put(d.T||[],'T');put(d.B||[],'B');return p;
+}
+function drawIC(c){
+  const d=c.ic,w=d.w,h=d.h,g=[],cls=c.soc?'socbox':'icbox';
+  g.push(`<rect class="${cls}" x="${-w/2}" y="${-h/2}" width="${w}" height="${h}" rx="2"/>`);
+  g.push(`<text class="icname" x="0" y="${-h/2+16}" text-anchor="middle">${c.name||c.ref}</text>`);
+  Object.entries(c.pins).forEach(([nm,p])=>{
+    const [x,y,dir,num]=p;
+    const ex=dir==='L'?-w/2:dir==='R'?w/2:x, ey=dir==='U'?-h/2:dir==='D'?h/2:y;
+    g.push(`<line class="pinl" x1="${x}" y1="${y}" x2="${ex}" y2="${ey}"/>`);
+    const anc=dir==='L'?'start':dir==='R'?'end':'middle';
+    const tx=dir==='L'?-w/2+5:dir==='R'?w/2-5:x, ty=dir==='U'?-h/2+11:dir==='D'?h/2-5:y+3;
+    g.push(`<text class="pname" x="${tx}" y="${ty}" text-anchor="${anc}">${nm}</text>`);
+    const nx=dir==='L'?-w/2-6:dir==='R'?w/2+6:x+5, ny=dir==='U'?-h/2-6:dir==='D'?h/2+10:y-4;
+    g.push(`<text class="pn" x="${nx}" y="${ny}" text-anchor="${dir==='L'?'end':dir==='R'?'start':'middle'}">${num}</text>`);
+  });
+  return g.join('');
+}
+</script>
+<script>
+/* ============ NET NOTES ============ */
+const NETINFO={
+ GND:"Single ground net. Pin 1 is audio-local, everything else returns through the E-pad (89) — 39 vias on the reference board.",
+ CHGND:"Kept SEPARATE deliberately: isolated chassis island under the RJ45, bridged to GND only by 1M in parallel with 1nF/2kV.",
+ VBUS_5V:"USB-C sink only. CC1 and CC2 each need their own 5.1k.",
+ VDD3V3:"One 3.3 V net. The reference merges VDDIO_SD0, VDDIO_SD1 and VDD33A_ETH into a single rail (their SPI_VCC), so this board does too.",
+ VDD1V8:"One 1.8 V net feeding VDD18A_AUD, VDD18A_MIPI and VDDIO_RTC. Each pin still gets its own 100 nF.",
+ VDD18A_USB:"Kept SEPARATE: ferrite-isolated from VDD1V8. This is the USB PHY, PLL and Ethernet analog supply — the PLL clocks the whole chip.",
+ VDD1V35:"DDR3L VDDQ. External supply, not internal to the SiP. 3 vias in the E-pad mask ring at y=-3.600.",
+ VDDC:"0.95 V for SG2002, NOT 0.9 V. Size for 1.5 A. R46=11k8 sets it.",
+ VDDC_RTC:"Kept SEPARATE: internal LDO output on pin 37. Capacitors only — never drive this.",
+ WIFI_VDD:"Kept SEPARATE: ferrite-isolated. WiFi TX bursts are the noisiest load on the board.",
+ FB_VDDC:"0.6 x (11.8/20 + 1) = 0.954 V. Reference fits 10k here for 0.90 V — do not copy it.",
+ FB_3V3:"0.6 x (100/22.6 + 1) = 3.26 V. From the reference design.",
+ FB_1V35:"0.6 x (15/12 + 1) = 1.35 V. From the reference design.",
+ PWR_SEQ2:"Gates the 3.3 V regulator EN — the entire sequencing scheme. ETA3414 EN threshold 1.2 V max vs 1.8 V drive: 0.42 V margin, verified.",
+ UART0_TX:"BOOT STRAP. The 4.7k pull-up is mandatory — a pull-down puts the chip in ROM fail mode.",
+ CPU_SEL:"BOOT STRAP, pin 67. Internal default is pull-DOWN = Cortex-A53. You MUST fit R15 to boot RISC-V.",
+ SPI_WP:"EMMC_DAT3, pin 23. Pull DOWN for SPI NOR boot; leave open for SD-card boot.",
+ SPI_MOSI:"EMMC_DAT0, pin 22. Boot device is latched from pins 22+23 together.",
+ VBAT_DET:"30k/10k from 5 V gives 1.25 V. The chip will not start with this floating.",
+ XTAL_XIN:"0.25 mm trace with per-trace ground shield. The 1M across XIN/XOUT cannot be omitted.",
+ EPHY_RXN:"Package pin is PAD_ETH_TXP. TX/RX and P/N are both crossed by the vendor — do not 'fix' it.",
+ EPHY_RXP:"Package pin is PAD_ETH_TXM. Vendor naming is crossed.",
+ EPHY_TXN:"Package pin is PAD_ETH_RXP. Vendor naming is crossed.",
+ EPHY_TXP:"Package pin is PAD_ETH_RXM. Vendor naming is crossed.",
+ WIFI_ANT:"50 ohm, 0.762 mm wide, referenced to L4. All planes cut away beneath.",
+ USB_DP:"90 ohm pair, SoC side of the series resistor. Intra-pair skew under 10 mil.",
+ SD0_CLK:"CL under 30 pF is the binding constraint, not frequency. Short, one via, no stubs.",
+ SPI_CLK:"The only single-ended net needing individual ground shielding.",
+ LPO:"32.768 kHz low-power clock for the AP6212's Bluetooth modes. Driven from SoC pin 88 — a 1.8 V pin, matching the module's IO domain. Generate it from a PWM channel or an RTC clock output in the DTS.",
+ WL_LDO_SW:"AP6212 internal buck SWITCH node, pin 21. Connects to pin 23 only through L4. Never tie this to a supply rail.",
+ WL_LDO_IN:"AP6212 internal buck feedback input, pin 23. L4 from pin 21, C58 to ground. Corroborated against the FriendlyELEC NanoPi NEO Air and Rockchip PX30 reference designs.",
+ AUD_AVREF:"SG2002 pin 3 — internal audio reference. Needs a 1 uF cap to ground even with audio unused.",
+ ZQ_TP:"No external resistor on the reference board. First thing to probe when DDR init fails."
+};
+const GNDNETS=new Set(['GND','CHGND']);
+const RAILS=new Set(['VBUS_5V','VDD3V3','VDD1V8','VDD1V35','VDDC','VDD18A_USB','WIFI_VDD','VDDC_RTC']);
+
+const R=(r,v,x,y,rot,a,b,n)=>({ref:r,kind:'R',val:v,x,y,rot:rot||'V',nets:{A:a,B:b},note:n});
+const C=(r,v,x,y,rot,a,b,n)=>({ref:r,kind:'C',val:v,x,y,rot:rot||'V',nets:{A:a,B:b},note:n});
+const L=(r,v,x,y,rot,a,b,n)=>({ref:r,kind:'L',val:v,x,y,rot:rot||'H',nets:{A:a,B:b},note:n});
+const FBd=(r,v,x,y,rot,a,b,n)=>({ref:r,kind:'FB',val:v,x,y,rot:rot||'H',nets:{A:a,B:b},note:n});
+const Dd=(r,v,x,y,rot,a,k,n)=>({ref:r,kind:'D',val:v,x,y,rot:rot||'V',nets:{A:a,K:k},note:n});
+const LEDd=(r,v,x,y,rot,a,k,n)=>({ref:r,kind:'LED',val:v,x,y,rot:rot||'V',nets:{A:a,K:k},note:n});
+const SWd=(r,v,x,y,a,b,n)=>({ref:r,kind:'SW',val:v,x,y,rot:'H',nets:{A:a,B:b},note:n});
+const TPd=(r,v,x,y,a,n)=>({ref:r,kind:'TP',val:v,x,y,rot:'V',nets:{A:a},note:n});
+const IC=(r,nm,v,x,y,def,nets,n,soc)=>({ref:r,kind:'IC',name:nm,val:v,x,y,ic:def,nets,note:n,soc});
+const BUCK={w:150,h:120,L:[['1','EN'],['4','IN']],R:[['3','SW'],['5','FB']],B:[['2','GND']]};
+const LDOd={w:150,h:110,L:[['1','VIN'],['3','EN']],R:[['5','VOUT']],B:[['2','GND']]};
+
+const SHEETS=[];
+
+/* ============ 01 POWER ============ */
+SHEETS.push({id:'01_Power',title:'Power tree',
+ note:"Four rails from USB-C 5 V. The 3.3 V buck's enable is gated by PWR_SEQ2 — that single connection is the whole sequencing scheme. VDDQ and 1.8 V use RC soft-start on their enables, as the reference does.",
+ comps:[
+  IC('U1G','SG2002','power pins',1330,560,
+   {w:210,h:820,L:[['9','VDDC'],['16','VDDC_2'],['50','VDDC_3'],['61','VDDC_4'],['71','VDDC_5'],
+     ['31','VDDQ_DRAM1'],['32','VDDQ_1'],['33','VDDQ_2'],['34','VDDQ_DRAM2'],['13','VDDIO_SD0'],
+     ['57','VDDIO_SD1'],['66','VDD33A_ETH'],['68','VDD18A_USB'],['36','VDDIO_RTC'],['82','VDD18A_MIPI'],
+     ['5','VDD18A_AUD'],['37','VDDC_RTC'],['1','VSS18A_AUD'],['89','EPAD'],['42','PTEST'],
+     ['41','PWR_SEQ2'],['38','PWR_VBAT_DET']]},
+   {VDDC:'VDDC',VDDC_2:'VDDC',VDDC_3:'VDDC',VDDC_4:'VDDC',VDDC_5:'VDDC',
+    VDDQ_DRAM1:'VDD1V35',VDDQ_1:'VDD1V35',VDDQ_2:'VDD1V35',VDDQ_DRAM2:'VDD1V35',
+    VDDIO_SD0:'VDD3V3',VDDIO_SD1:'VDD3V3',VDD33A_ETH:'VDD3V3',VDD18A_USB:'VDD18A_USB',
+    VDDIO_RTC:'VDD1V8',VDD18A_MIPI:'VDD1V8',VDD18A_AUD:'VDD1V8',VDDC_RTC:'VDDC_RTC',
+    VSS18A_AUD:'GND',EPAD:'GND',PTEST:'GND',PWR_SEQ2:'PWR_SEQ2',PWR_VBAT_DET:'VBAT_DET'},
+   "Every supply pin of the SG2002, one net label each. Pin 1 and the E-pad (89) are the only grounds.",1),
+  IC('U6','ETA3414','0.95 V / 1.5 A',260,190,BUCK,
+    {EN:'VBUS_5V',IN:'VBUS_5V',SW:'LX_VDDC',FB:'FB_VDDC',GND:'GND'},
+    "CORE RAIL. 1220 mA TPU + 258 mA core = 1.48 A against a 1.5 A part — no headroom. Consider a 2 A+ device."),
+  C('C47','22 uF 0805',130,285,'V','VBUS_5V','GND','Input bulk. Keep the cap-switch-inductor loop tiny.'),
+  L('L2','1.0 uH 4 A',470,160,'H','LX_VDDC','VDDC','Core inductor, 1.5 A with headroom.'),
+  C('C48','22 uF 0603',580,245,'V','VDDC','GND','Core output bulk.'),
+  R('R46','11k8 1%',700,140,'V','VDDC','FB_VDDC','THE critical resistor. 0.6 x (11.8/20+1) = 0.954 V.'),
+  R('R47','20k 1%',700,255,'V','FB_VDDC','GND','Lower FB leg.'),
+  TPd('TP4','0.95 V',830,140,'VDDC','Scope every rail on a slow ramp before fitting the SoC.'),
+  IC('U5','ETA3414','3.3 V / 1 A',260,470,BUCK,
+    {EN:'PWR_SEQ2',IN:'VBUS_5V',SW:'LX_3V3',FB:'FB_3V3',GND:'GND'},
+    'Enable gated by PWR_SEQ2. EN threshold 1.2 V max vs 1.8 V drive — 0.42 V margin, no level shift.'),
+  C('C45','22 uF 0805',130,565,'V','VBUS_5V','GND','Input bulk.'),
+  L('L1','2.2 uH 2 A',470,440,'H','LX_3V3','VDD3V3','3.3 V inductor.'),
+  C('C46','22 uF 0603',580,525,'V','VDD3V3','GND','Output bulk.'),
+  R('R44','100k 1%',700,420,'V','VDD3V3','FB_3V3','0.6 x (100/22.6+1) = 3.26 V. From the reference.'),
+  R('R45','22k6 1%',700,535,'V','FB_3V3','GND','Lower FB leg.'),
+  TPd('TP7','3.3 V',830,420,'VDD3V3','Verify this rises only AFTER 1.8 V.'),
+  IC('U7','ETA3414','1.35 V / 1 A',260,750,BUCK,
+    {EN:'EN_1V35',IN:'VBUS_5V',SW:'LX_1V35',FB:'FB_1V35',GND:'GND'},
+    'DDR3L VDDQ. An LDO here would burn 0.5 W.'),
+  C('C41','22 uF 0805',130,845,'V','VBUS_5V','GND','Input bulk.'),
+  L('L3','2.2 uH 2 A',470,720,'H','LX_1V35','VDD1V35','VDDQ inductor.'),
+  C('C49','22 uF 0603',580,805,'V','VDD1V35','GND','VDDQ output bulk. Ripple here is the first DDR suspect.'),
+  R('R48','15k 1%',700,700,'V','VDD1V35','FB_1V35','0.6 x (15/12+1) = 1.35 V.'),
+  R('R49','12k 1%',700,815,'V','FB_1V35','GND','Lower FB leg.'),
+  R('R50','33k',110,700,'V','VBUS_5V','EN_1V35','RC soft-start on the VDDQ enable, with C50.'),
+  C('C50','1 uF',110,815,'V','EN_1V35','GND','Soft-start timing cap.'),
+  TPd('TP5','1.35 V',830,700,'VDD1V35','Rail test point.'),
+  IC('U8','ETA5050','1.8 V / 300 mA',260,1000,LDOd,
+    {VIN:'VDD3V3',EN:'EN_1V8',VOUT:'VDD1V8',GND:'GND'},
+    'Fed from 3.3 V. 1.5 V drop at 150 mA = 0.23 W.'),
+  R('R51','33k',110,945,'V','VDD3V3','EN_1V8','RC soft-start on the LDO enable, with C51.'),
+  C('C51','1 uF',110,1055,'V','EN_1V8','GND','Soft-start timing cap.'),
+  C('C52','4.7 uF',500,1000,'V','VDD1V8','GND','LDO output capacitor.'),
+  C('C53','100 nF',590,1000,'V','VDD1V8','GND','LDO output bypass.'),
+  TPd('TP6','1.8 V',830,945,'VDD1V8','Rail test point.'),
+  C('C54','22 uF 0805',960,150,'V','VBUS_5V','GND','System input bulk at the 5 V entry.'),
+  TPd('TP8','5 V',960,60,'VBUS_5V','Input rail test point.'),
+  R('R16','30k 1%',960,860,'V','VBUS_5V','VBAT_DET','VBAT divider upper leg — 5 V through 30k/10k gives 1.25 V.'),
+  R('R17','10k 1%',960,975,'V','VBAT_DET','GND','Lower leg. Chip will not start with this floating.'),
+  FBd('FB2','600R @100MHz',640,930,'H','VDD1V8','VDD18A_USB','Isolates the USB PHY, PLL and Ethernet analog domain.'),
+  C('C21','10 uF',760,1000,'V','VDD18A_USB','GND','Analog bulk.'),
+  C('C22','100 nF',850,1000,'V','VDD18A_USB','GND','Analog bypass.'),
+  C('C17','1 uF',1080,150,'V','VDDC_RTC','GND','Pin 37 is an internal LDO output — capacitors only.'),
+  C('C18','100 nF',1170,150,'V','VDDC_RTC','GND','Pin 37 decoupling.')
+ ]});
+
+/* ============ 02 DECOUPLING ============ */
+const dc=[];
+[['C1','100 nF'],['C6','100 nF'],['C7','100 nF'],['C2','1 uF'],['C3','1 uF'],['C5','1 uF'],
+ ['C4','4.7 uF'],['C8','4.7 uF'],['C9','10 uF'],['C10','10 uF']].forEach((e,i)=>
+  dc.push(C(e[0],e[1],180+i*115,200,'V','VDDC','GND',
+   i<3?'Ring 1 — under the package body, 2.5 mm from centre on the reference. 0201 there.':
+   i<6?'Ring 2 — next ring out.':i<8?'Ring 3 — mid-field, 4.3-5.7 mm.':
+   'Bulk — belongs AT THE REGULATOR (6.1 mm out), not at the SoC.')));
+[['C11','100 nF'],['C12','100 nF'],['C13','1 uF'],['C14','4.7 uF'],['C15','4.7 uF'],['C16','10 uF']]
+ .forEach((e,i)=>dc.push(C(e[0],e[1],180+i*115,430,'V','VDD1V35','GND','DDR rail bypass.')));
+['C24','C26','C29','C30','C31','C32'].forEach((r,i)=>
+  dc.push(C(r,'100 nF',180+i*115,660,'V','VDD1V8','GND','One per 1.8 V pin — the rail is merged but each pin still needs its own bypass.')));
+['C20','C28'].forEach((r,i)=>dc.push(C(r,'10 uF',180+i*115,880,'V','VDD1V8','GND','1.8 V bulk.')));
+['C33','C34','C35','C36'].forEach((r,i)=>
+  dc.push(C(r,i<2?'10 uF':'100 nF',520+i*115,880,'V','VDD3V3','GND','3.3 V rail decoupling at the load.')));
+SHEETS.push({id:'02_Decoupling',title:'Decoupling',
+ note:"VDDC uses a graded cascade: 100 nF at the chip, 1 uF next, 4.7 uF mid-field, 10 uF at the regulator. Measured on the reference board, not guessed. X5R or X7R only — Y5V is prohibited by the design guide.",
+ comps:dc});
+
+/* ============ 03 STORAGE ============ */
+SHEETS.push({id:'03_Storage',title:'microSD + SPI NOR',
+ note:"SD0 is 3.3 V fixed — UHS-I is impossible because SD0 shares its IO rail with eMMC. All four boot straps live on this sheet: both flash straps and the two UART0 pull-ups.",
+ comps:[
+  IC('U1B','SG2002','SD0 + SPINOR + UART0',330,470,
+   {w:220,h:700,R:[['6','SD0_CLK'],['7','SD0_CMD'],['8','SD0_D0'],['10','SD0_D1'],['11','SD0_D2'],
+     ['12','SD0_D3'],['14','SD0_CD'],['15','SD0_PWR_EN'],['18','UART0_TX'],['19','UART0_RX'],
+     ['21','SPINOR_SCK'],['22','SPINOR_MOSI'],['24','SPINOR_MISO'],['25','SPINOR_CS'],
+     ['23','SPINOR_WP'],['20','SPINOR_HOLD']]},
+   {SD0_CLK:'SD0_CLK',SD0_CMD:'SD0_CMD',SD0_D0:'SD0_D0',SD0_D1:'SD0_D1',SD0_D2:'SD0_D2',
+    SD0_D3:'SD0_D3',SD0_CD:'SD0_CD',SD0_PWR_EN:'SD0_PWR_EN',UART0_TX:'UART0_TX',UART0_RX:'UART0_RX',
+    SPINOR_SCK:'SPI_CLK',SPINOR_MOSI:'SPI_MOSI',SPINOR_MISO:'SPI_MISO',SPINOR_CS:'SPI_CS',
+    SPINOR_WP:'SPI_WP',SPINOR_HOLD:'SPI_HOLD'},
+   'SD0 and SPI NOR share the 3.3 V IO domain. Default mux on 20-25 is already SPINOR.',1),
+  IC('U2','microSD','push-pull socket',1420,300,
+   {w:160,h:340,L:[['1','CLK'],['2','CMD'],['3','DAT0'],['4','DAT1'],['5','DAT2'],['6','DAT3'],['7','CD'],['8','VDD'],['9','VSS']]},
+   {CLK:'SD0_CLK_SD',CMD:'SD0_CMD',DAT0:'SD0_D0',DAT1:'SD0_D1',DAT2:'SD0_D2',DAT3:'SD0_D3',
+    CD:'SD0_CD',VDD:'VDD3V3',VSS:'GND'},'Boot device. Hirose DM3AT-SF-PEJM5.'),
+  R('R1','22R',900,150,'H','SD0_CLK','SD0_CLK_SD','Series damping at the SoC end.'),
+  R('R2','10k',830,300,'V','SD0_CMD','VDD3V3','Command pull-up.'),
+  R('R3','10k',920,300,'V','SD0_D0','VDD3V3','Data pull-up.'),
+  R('R4','10k',1010,300,'V','SD0_D1','VDD3V3','Data pull-up.'),
+  R('R5','10k',1100,300,'V','SD0_D2','VDD3V3','Data pull-up.'),
+  R('R6','10k',1190,300,'V','SD0_D3','VDD3V3','Data pull-up.'),
+  R('R7','10k',1280,300,'V','SD0_CD','VDD3V3','Card-detect pull-up.'),
+  IC('U3','W25Q128','16 MB SOIC-8',1420,800,
+   {w:160,h:220,L:[['1','CS'],['6','CLK'],['5','DI']],R:[['2','DO'],['3','WP'],['7','HOLD']],T:[['8','VCC']],B:[['4','GND']]},
+   {CS:'SPI_CS',CLK:'SPI_CLK_F',DI:'SPI_MOSI',DO:'SPI_MISO',WP:'SPI_WP',HOLD:'SPI_HOLD',VCC:'VDD3V3',GND:'GND'},
+   'W25Q128JVSIQ(1T) — vendor validated list. The (1T) suffix is specified.'),
+  R('R8','22R',900,660,'H','SPI_CLK','SPI_CLK_F','Series damping. SPI_CLK needs individual ground shielding.'),
+  R('R9','4.7k',830,800,'V','SPI_CS','VDD3V3','Chip-select pull-up.'),
+  R('R10','4.7k',920,800,'V','SPI_HOLD','VDD3V3','HOLD# pull-up.'),
+  R('R11','4.7k',830,980,'V','UART0_TX','VDD3V3',"MANDATORY. Pull-down = ROM fail mode. Reference labels it 'Do not Delete!!!'."),
+  R('R12','4.7k',920,980,'V','UART0_RX','VDD3V3','The reference pulls RX up too.'),
+  R('R13','4.7k DNP',1050,980,'V','SPI_MOSI','VDD3V3','EMMC_DAT0 pull-UP. Unpopulated — internal pull-up used.'),
+  R('R14','4.7k DNP',1160,980,'V','SPI_WP','GND','EMMC_DAT3 pull-DOWN. Fit ONLY for SPI NOR boot.'),
+  C('C37','10 uF',1280,700,'V','VDD3V3','GND','Local bulk at the socket.'),
+  C('C38','100 nF',1280,980,'V','VDD3V3','GND','Flash bypass at the VCC pin.')
+ ]});
+
+/* ============ 04 USB ============ */
+SHEETS.push({id:'04_USB',title:'USB 2.0 Type-C',
+ note:"Sink only, no PD. CC1 and CC2 need SEPARATE 5.1k resistors — one shared resistor is a classic fatal error. The ESD array sits INLINE, not as a stub, and belongs as close to the connector as possible.",
+ comps:[
+  IC('U1D','SG2002','USB',1330,400,
+   {w:200,h:200,L:[['69','USB_DP'],['70','USB_DM'],['60','USB_VBUS_DET']]},
+   {USB_DP:'USB_DP',USB_DM:'USB_DM',USB_VBUS_DET:'USB_VBUS_DET'},
+   'USB_VBUS_DET: low = host, high = device. 1.8 V domain input.',1),
+  IC('J2','USB-C','16-pin sink',230,380,
+   {w:160,h:280,R:[['A4/B4','VBUS'],['A6/B6','DP'],['A7/B7','DM'],['A5','CC1'],['B5','CC2'],['A1/B1','GND']]},
+   {VBUS:'VBUS_5V',DP:'USB_DP_CON',DM:'USB_DM_CON',CC1:'CC1',CC2:'CC2',GND:'GND'},
+   'GCT USB4085-GF-A. Tie A/B duplicate pins together.'),
+  R('R37','5k1',480,600,'V','CC1','GND','Type-C sink advertisement. Separate resistor per CC pin.'),
+  R('R38','5k1','570',600,'V','CC2','GND','Second, independent CC pull-down.'),
+  IC('D1','USBLC6','ESD 3.5 pF max',720,330,
+   {w:150,h:190,L:[['1','IO1_IN'],['3','IO2_IN']],R:[['6','IO1_OUT'],['4','IO2_OUT']],T:[['5','VBUS']],B:[['2','GND']]},
+   {IO1_IN:'USB_DP_CON',IO2_IN:'USB_DM_CON',IO1_OUT:'USB_DP_MID',IO2_OUT:'USB_DM_MID',VBUS:'VBUS_5V',GND:'GND'},
+   'USBLC6-2SC6. Tracks to I/O, VBUS and GND must be as short as possible — the datasheet shows parasitic inductance turning a 31 V clamp into 319 V.'),
+  R('R39','5R1',1000,270,'H','USB_DP_MID','USB_DP','Series damping at the CONNECTOR end, not the SoC.'),
+  R('R40','5R1',1000,380,'H','USB_DM_MID','USB_DM','Series damping at the connector end.'),
+  R('R41','100k',1000,620,'V','VBUS_5V','USB_VBUS_DET','VBUS sense divider upper leg.'),
+  R('R42','47k',1000,735,'V','USB_VBUS_DET','GND','Lower leg.'),
+  C('C42','10 uF',230,750,'V','VBUS_5V','GND','Input bulk at the connector.'),
+  C('C43','100 nF',330,750,'V','VBUS_5V','GND','Input bypass.')
+ ]});
+
+/* ============ 05 ETHERNET ============ */
+SHEETS.push({id:'05_Ethernet',title:'Ethernet 10/100',
+ note:"5.1 ohm series into the magnetics is required — surge immunity and EMI. NO RC filter on the pairs: it wrecks the eye diagram. CHGND is deliberately a separate net: an isolated chassis island bridged to GND only through R34 and C39.",
+ comps:[
+  IC('U1E','SG2002','EPHY',250,350,
+   {w:210,h:320,R:[['62','ETH_TXP'],['63','ETH_TXM'],['64','ETH_RXP'],['65','ETH_RXM'],['48','PWR_GPIO1'],['49','PWR_GPIO2']]},
+   {ETH_TXP:'EPHY_RXN',ETH_TXM:'EPHY_RXP',ETH_RXP:'EPHY_TXN',ETH_RXM:'EPHY_TXP',
+    PWR_GPIO1:'ETH_LNK',PWR_GPIO2:'ETH_SPD'},
+   'Package pin names and net names are CROSSED by the vendor — pin 62 is named PAD_ETH_TXP but carries EPHY_RXN. Do not correct it.',1),
+  R('R26','5R1',620,240,'H','EPHY_TXP','ETH_TXP_M','Series into the magnetics. Required, not optional.'),
+  R('R27','5R1',620,330,'H','EPHY_TXN','ETH_TXN_M','Series into the magnetics.'),
+  R('R28','5R1',620,420,'H','EPHY_RXP','ETH_RXP_M','Series into the magnetics.'),
+  R('R29','5R1',620,510,'H','EPHY_RXN','ETH_RXN_M','Series into the magnetics.'),
+  IC('J1','RJ45','integrated magnetics',960,370,
+   {w:170,h:320,L:[['1','TXP'],['2','TXN'],['3','RXP'],['4','RXN'],['5','CT'],['6','LNK'],['7','SPD']],B:[['8','SHLD']]},
+   {TXP:'ETH_TXP_M',TXN:'ETH_TXN_M',RXP:'ETH_RXP_M',RXN:'ETH_RXN_M',CT:'BOB',
+    LNK:'ETH_LNK_A',SPD:'ETH_SPD_A',SHLD:'CHGND'},'HanRun HR911105A. No copper pour under the magnetics.'),
+  R('R30','75R 1%',620,760,'V','ETH_TXP_M','BOB','Bob Smith termination.'),
+  R('R31','75R 1%',710,760,'V','ETH_TXN_M','BOB','Bob Smith termination.'),
+  R('R32','75R 1%',800,760,'V','ETH_RXP_M','BOB','Bob Smith termination.'),
+  R('R33','75R 1%',890,760,'V','ETH_RXN_M','BOB','Bob Smith termination.'),
+  C('C39','1 nF 2 kV 1206',1010,760,'V','BOB','CHGND','High-voltage coupling to chassis. Rating and 1206 body both matter.'),
+  R('R34','1M',1120,760,'V','CHGND','GND','Bleeds the chassis island to digital ground.'),
+  Dd('DA1','SMBJ14A',1230,760,'V','CHGND','GND','Transient suppression on the chassis node.'),
+  R('R35','1k',700,150,'H','ETH_LNK','ETH_LNK_A','Link LED. Driven from a 1.8 V pin.'),
+  R('R36','1k',700,60,'H','ETH_SPD','ETH_SPD_A','Speed LED, 1.8 V drive.')
+ ]});
+
+/* ============ 06 WIRELESS ============ */
+SHEETS.push({id:'06_Wireless',title:'WiFi + antenna',
+ note:"AP6212 needs TWO supplies: VBAT and VDDIO. NC pins must FLOAT — the datasheet says do not connect to ground. The antenna line is 50 ohm, 0.762 mm wide, referenced to L4 with all planes cut beneath.",
+ comps:[
+  IC('U1F','SG2002','SD1 + WiFi control',250,400,
+   {w:210,h:400,R:[['56','SD1_CLK'],['55','SD1_CMD'],['54','SD1_D0'],['53','SD1_D1'],
+     ['52','SD1_D2'],['51','SD1_D3'],['47','PWR_GPIO0'],['43','PWR_WAKEUP0']]},
+   {SD1_CLK:'SD1_CLK',SD1_CMD:'SD1_CMD',SD1_D0:'SD1_D0',SD1_D1:'SD1_D1',SD1_D2:'SD1_D2',
+    SD1_D3:'SD1_D3',PWR_GPIO0:'WL_REG_ON',PWR_WAKEUP0:'WL_HOST_WAKE'},
+   'SD1 is on the right package edge — which is why the module sits right of the SoC on the board.',1),
+  R('R18','22R',600,230,'H','SD1_CLK','SD1_CLK_W','Series damping at the SoC end.'),
+  R('R19','10k',620,400,'V','SD1_CMD','VDD3V3','Command pull-up.'),
+  R('R20','10k',710,400,'V','SD1_D0','VDD3V3','Data pull-up.'),
+  R('R21','10k',800,400,'V','SD1_D1','VDD3V3','Data pull-up.'),
+  R('R22','10k',890,400,'V','SD1_D2','VDD3V3','Data pull-up.'),
+  R('R23','10k',980,400,'V','SD1_D3','VDD3V3','Data pull-up.'),
+  R('R24','10k',620,620,'V','WL_REG_ON','GND','Holds the module disabled until software enables it.'),
+  R('R25','10k',710,620,'V','WL_HOST_WAKE','GND','Host-wake pull-down.'),
+  IC('U4','AP6212','WiFi/BT SDIO module',1330,480,
+   {w:230,h:480,
+    L:[['17','SDIO_CLK'],['16','SDIO_CMD'],['18','SDIO_D0'],['19','SDIO_D1'],['14','SDIO_D2'],
+       ['15','SDIO_D3'],['12','WL_REG_ON'],['13','WL_HOST_WAKE']],
+    R:[['2','WL_BT_ANT'],['24','LPO'],['34','BT_RST_N'],['21','VIN_LDO_OUT'],['23','VIN_LDO']],
+    T:[['9','VBAT'],['22','VDDIO']],B:[['1/3/20','GND']]},
+   {SDIO_CLK:'SD1_CLK_W',SDIO_CMD:'SD1_CMD',SDIO_D0:'SD1_D0',SDIO_D1:'SD1_D1',
+    SDIO_D2:'SD1_D2',SDIO_D3:'SD1_D3',WL_REG_ON:'WL_REG_ON',WL_HOST_WAKE:'WL_HOST_WAKE',
+    WL_BT_ANT:'WIFI_ANT',LPO:'LPO',BT_RST_N:'BT_RST',VIN_LDO_OUT:'WL_LDO_SW',VIN_LDO:'WL_LDO_IN',VBAT:'WIFI_VDD',VDDIO:'VDD3V3',GND:'GND'},
+   'AP6212 — the only SDIO module on the vendor validated list with a mainline driver (brcmfmac). LPO wants a 32.768 kHz clock for BT low-power; check whether WiFi-only works without it.'),
+  FBd('FB5','600R @100MHz',1150,140,'H','VDD3V3','WIFI_VDD','Isolates the module. WiFi TX bursts are the noisiest load on the board.'),
+  C('C40','10 uF',1320,140,'V','WIFI_VDD','GND','Module bulk, sized for TX current bursts.'),
+  C('C44','100 nF',1420,140,'V','WIFI_VDD','GND','Module bypass.'),
+  IC('E1','u.FL','RF connector',1610,860,{w:110,h:110,L:[['1','RF']],B:[['2','GND']]},
+   {RF:'WIFI_ANT',GND:'GND'},'Hirose U.FL-R-SMT-1(01) — the anti-solder-wicking variant.'),
+  L('L4','4.7 uH',1610,300,'H','WL_LDO_SW','WL_LDO_IN','Internal buck inductor between pins 21 and 23. NOT a bypass — neither pin may touch a supply rail. Murata DFE252010P-4R7M.'),
+  C('C58','10 uF',1610,430,'V','WL_LDO_IN','GND','Internal buck output cap on pin 23.')
+ ]});
+
+/* ============ 07 CLOCK & RESET ============ */
+SHEETS.push({id:'07_Clock_Reset',title:'Clock · reset · straps',
+ note:"The 25 MHz crystal is mandatory: 4-pin package with both case grounds bonded, and the 1 M across XIN/XOUT cannot be omitted. R15 is the strap you MUST populate — internal default boots ARM, not RISC-V.",
+ comps:[
+  IC('U1A','SG2002','RTC · clock · straps',400,480,
+   {w:230,h:520,R:[['45','XTAL_XIN'],['46','XTAL_XOUT'],['39','PWR_RSTN'],['44','PWR_BUTTON1'],
+     ['67','EPHY_RTX'],['35','PAD_ZQ'],['40','PWR_SEQ1'],['58','PWM0_BUCK'],['59','ADC1']]},
+   {XTAL_XIN:'XTAL_XIN',XTAL_XOUT:'XTAL_XOUT',PWR_RSTN:'RESET_N',PWR_BUTTON1:'BOOT_BTN',
+    EPHY_RTX:'CPU_SEL',PAD_ZQ:'ZQ_TP',PWR_SEQ1:'SEQ1_TP',PWM0_BUCK:'PWM0_BUCK',ADC1:'ADC1'},
+   'EPHY_RTX sits on an Ethernet pin but selects the CPU core. Its pull-up goes to 1.8 V, not 3.3 V.',1),
+  {ref:'Y1',kind:'XTAL',val:'25 MHz ±20 ppm',x:950,y:240,rot:'H',
+   nets:{XI:'XTAL_XIN',XO:'XTAL_XOUT',G1:'GND',G2:'GND'},
+   note:'TSX-3225 25.0000MF20X-W, 12 pF load. 4-pin package with both case grounds bonded — mandatory for ESD immunity.'},
+  R('R43','1M',950,380,'H','XTAL_XIN','XTAL_XOUT','The design guide states this cannot be omitted.'),
+  C('C55','18 pF NP0',810,380,'V','XTAL_XIN','GND','Load cap. C = 2 x (12 - 3 stray) = 18 pF. NP0/C0G only.'),
+  C('C56','18 pF NP0',1090,380,'V','XTAL_XOUT','GND','Load cap, NP0/C0G.'),
+  R('R15','4.7k FIT',950,560,'V','VDD1V8','CPU_SEL','POPULATE THIS. Internal default is pull-down = Cortex-A53. Fit to boot the C906 RISC-V core.'),
+  R('R52','10k',1150,560,'V','RESET_N','VDD1V8','Reset pull-up.'),
+  C('C57','100 nF',1250,620,'V','RESET_N','GND','Reset debounce.'),
+  SWd('SW1','reset',1000,700,'RESET_N','GND','Momentary. PWR_RSTN, pin 39.'),
+  SWd('SW2','boot',1000,810,'BOOT_BTN','GND','PWR_BUTTON1, pin 44 — already internally pulled up.'),
+  TPd('TP1','ZQ',760,900,'ZQ_TP','No external resistor on the reference. First thing to probe when DDR init fails.'),
+  TPd('TP2','SEQ1',870,900,'SEQ1_TP','Unused in an always-on topology.'),
+  TPd('TP3','PWM0',1310,900,'PWM0_BUCK','Dynamic VDDC scaling. Footprints placed, network unpopulated.')
+ ]});
+
+/* ============ 08 IO ============ */
+SHEETS.push({id:'08_IO',title:'Debug · headers · LEDs',
+ note:"Most spare GPIO on this chip is 1.8 V — only six 3.3 V pins remain after SD0, SPI NOR and UART0. Silkscreen the domain on both sides of the board or someone will plug a 3.3 V sensor into the 1.8 V header.",
+ comps:[
+  IC('U1H','SG2002','spare IO',350,540,
+   {w:250,h:800,L:[['26','JTAG_TMS'],['27','JTAG_TCK'],['28','IIC0_SCL'],['29','IIC0_SDA'],['30','AUX0'],['17','SPK_EN'],['3','AUD_AVREF'],['88','MIPI_TXP0']],
+    R:[['72','MIPIRX4N'],['73','MIPIRX4P'],['74','MIPIRX3N'],['75','MIPIRX3P'],['76','MIPIRX2N'],['77','MIPIRX2P'],['78','MIPIRX1N'],['79','MIPIRX1P'],['80','MIPIRX0N'],['81','MIPIRX0P'],['83','MIPI_TXM2'],['84','MIPI_TXP2'],['85','MIPI_TXM1'],['86','MIPI_TXP1'],['87','MIPI_TXM0'],['2','AUD_AINL_MIC'],['4','AUD_AOUTR']]},
+   {JTAG_TMS:'JTAG_TMS',JTAG_TCK:'JTAG_TCK',IIC0_SCL:'I2C0_SCL',IIC0_SDA:'I2C0_SDA',AUX0:'GPIO_AUX0',SPK_EN:'GPIO_A15',AUD_AVREF:'AUD_AVREF',MIPI_TXP0:'LPO',MIPIRX4N:'HDR18_0',MIPIRX4P:'HDR18_1',MIPIRX3N:'HDR18_2',MIPIRX3P:'HDR18_3',MIPIRX2N:'HDR18_4',MIPIRX2P:'HDR18_5',MIPIRX1N:'HDR18_6',MIPIRX1P:'HDR18_7',MIPIRX0N:'HDR18_8',MIPIRX0P:'HDR18_9',MIPI_TXM2:'HDR18_10',MIPI_TXP2:'HDR18_11',MIPI_TXM1:'HDR18_12',MIPI_TXP1:'HDR18_13',MIPI_TXM0:'HDR18_14',AUD_AINL_MIC:'HDR18_15',AUD_AOUTR:'HDR18_16'},
+   'Every spare pin individually, no buses. Pins 72-87 are unused MIPI as XGPIOC (1.8 V); pins 2 and 4 are unused audio repurposed as GPIO. Pin 3 (AVREF) is an internal reference needing its own cap.',1),
+  IC('J3','UART0','4-pin 115200',880,170,
+   {w:150,h:180,R:[['1','GND'],['2','TX'],['3','RX'],['4','3V3']]},
+   {GND:'GND',TX:'UART0_TX',RX:'UART0_RX','3V3':'VDD3V3'},
+   'Your lifeline during bring-up. Square pad on pin 1, accessible edge.'),
+  IC('J4','HDR 3V3','8-pin 2.54 mm',880,560,
+   {w:150,h:250,L:[['1','SCL'],['2','SDA'],['3','TMS'],['4','TCK'],['5','AUX0'],['6','SPK'],['7','3V3'],['8','GND']]},
+   {SCL:'I2C0_SCL',SDA:'I2C0_SDA',TMS:'JTAG_TMS',TCK:'JTAG_TCK',AUX0:'GPIO_AUX0',
+    SPK:'GPIO_A15','3V3':'VDD3V3',GND:'GND'},'The last six 3.3 V pins on the device.'),
+  IC('J5','HDR 1V8','20-pin 2.54 mm',1200,760,
+   {w:170,h:660,L:[['1','IO0'],['2','IO1'],['3','IO2'],['4','IO3'],['5','IO4'],['6','IO5'],['7','IO6'],['8','IO7'],['9','IO8'],['10','IO9'],['11','IO10'],['12','IO11'],['13','IO12'],['14','IO13'],['15','IO14'],['16','IO15'],['17','IO16'],['18','1V8'],['19','GNDa'],['20','GNDb']]},
+   {IO0:'HDR18_0',IO1:'HDR18_1',IO2:'HDR18_2',IO3:'HDR18_3',IO4:'HDR18_4',IO5:'HDR18_5',IO6:'HDR18_6',IO7:'HDR18_7',IO8:'HDR18_8',IO9:'HDR18_9',IO10:'HDR18_10',IO11:'HDR18_11',IO12:'HDR18_12',IO13:'HDR18_13',IO14:'HDR18_14',IO15:'HDR18_15',IO16:'HDR18_16','1V8':'VDD1V8',GNDa:'GND',GNDb:'GND'},
+   '17 GPIO in the 1.8 V domain, one supply pin and TWO grounds. One return for 17 signals is not enough.'),
+  C('C59','1 uF',800,1000,'V','AUD_AVREF','GND','Pin 3 is an internal audio reference — needs this cap whether or not audio is used.'),
+  R('R53','2k',1560,300,'V','VDD3V3','LED_PWR_A','Power LED ballast.'),
+  LEDd('LED1','green',1560,420,'V','LED_PWR_A','GND','Power indicator.'),
+  R('R54','1k',1680,300,'V','GPIO_AUX0','LED_USR_A','User LED ballast on a spare 3.3 V pin.'),
+  LEDd('LED2','green',1680,420,'V','LED_USR_A','GND','User-controlled indicator.')
+ ]});
+</script>
+<script>
+const NS='http://www.w3.org/2000/svg';
+const sv=document.getElementById('sv'),side=document.getElementById('side'),
+      nav=document.getElementById('nav'),tip=document.getElementById('tip');
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+
+SHEETS.forEach(sh=>{
+  sh.nets={};
+  sh.comps.forEach(c=>{
+    c.x=+c.x;c.y=+c.y;
+    c.pins = c.kind==='IC' ? icPins(c.ic) : (()=>{
+      const b=pinsFor(c.kind,c.rot),o={};
+      Object.entries(b).forEach(([k,v])=>o[k]=[v[0],v[1],v[2],k]);return o;})();
+    c.sheet=sh.id;
+    Object.entries(c.nets||{}).forEach(([pn,net])=>{
+      if(!net)return;(sh.nets[net]=sh.nets[net]||[]).push({ref:c.ref,pin:pn,comp:c});});
+  });
+});
+const netSheets={};
+SHEETS.forEach(sh=>Object.keys(sh.nets).forEach(n=>{(netSheets[n]=netSheets[n]||[]).push(sh.id);}));
+let cur=0,sel=null,xs=false;
+SHEETS.forEach((sh,i)=>{const b=document.createElement('button');
+  b.innerHTML=sh.id.replace(/_/g,' ')+'<span class="n">'+sh.comps.length+'</span>';
+  b.onclick=()=>{cur=i;sel=null;render();};nav.append(b);});
+const el=(t,a)=>{const n=document.createElementNS(NS,t);for(const k in(a||{}))n.setAttribute(k,a[k]);return n;};
+
+function render(){
+  [...nav.children].forEach((b,i)=>b.classList.toggle('act',i===cur));
+  const sh=SHEETS[cur];sv.innerHTML='';
+  const root=el('g');sv.append(root);
+  root.append(el('rect',{class:'bdr',x:20,y:20,width:1660,height:1110}));
+  const tb=el('g',{class:'tb'});
+  tb.append(el('rect',{class:'bdr',x:1200,y:1010,width:470,height:110}));
+  tb.append(el('line',{class:'bdr',x1:1200,y1:1058,x2:1670,y2:1058}));
+  const a=el('text',{class:'big',x:1214,y:1046});a.textContent='NANO-D1  '+sh.id.replace(/_/g,' ');tb.append(a);
+  const b2=el('text',{x:1214,y:1078,'font-size':10});b2.textContent=sh.title;tb.append(b2);
+  const c2=el('text',{x:1214,y:1098,'font-size':9,fill:'#8a8272'});
+  c2.textContent='SG2002 SBC · 65 x 30 mm · 4 layer · rev2';tb.append(c2);
+  const d2=el('text',{x:1656,y:1098,'font-size':9,fill:'#8a8272','text-anchor':'end'});
+  d2.textContent='Sheet '+(cur+1)+' of '+SHEETS.length;tb.append(d2);
+  root.append(tb);
+  const gW=el('g'),gC=el('g'),gL=el('g');root.append(gW,gC,gL);
+
+  sh.comps.forEach(c=>{
+    const g=el('g',{class:'cbox','data-ref':c.ref,transform:`translate(${c.x},${c.y})`});
+    g.innerHTML=c.kind==='IC'?drawIC(c):drawSym(c);
+    if(c.kind!=='IC'){
+      const t1=el('text',{class:'ref',x:c.rot==='V'?16:-18,y:c.rot==='V'?-4:-14});t1.textContent=c.ref;g.append(t1);
+      const t2=el('text',{class:'val',x:c.rot==='V'?16:-18,y:c.rot==='V'?8:-3});t2.textContent=c.val;g.append(t2);
+    }else{
+      const t1=el('text',{class:'ref',x:-c.ic.w/2,y:-c.ic.h/2-16});t1.textContent=c.ref;g.append(t1);
+      const t2=el('text',{class:'val',x:-c.ic.w/2,y:-c.ic.h/2-5});t2.textContent=c.val;g.append(t2);
+    }
+    gC.append(g);
+  });
+
+  sh.comps.forEach(c=>{
+    Object.entries(c.nets||{}).forEach(([pn,net])=>{
+      const p=c.pins[pn];if(!p||!net)return;
+      const [px,py,dir]=p,ax=c.x+px,ay=c.y+py;
+      const dv={L:[-1,0],R:[1,0],U:[0,-1],D:[0,1]}[dir];
+      const ex=ax+dv[0]*S,ey=ay+dv[1]*S;
+      gW.append(el('path',{class:'wire',d:`M${ax} ${ay} L${ex} ${ey}`,'data-net':net}));
+      if(GNDNETS.has(net)){
+        const g=el('g',{'data-net':net,style:'cursor:pointer'});
+        g.append(el('path',{class:'pp','data-net':net,
+          d:`M${ex} ${ey} l0 8 M${ex-9} ${ey+8} l18 0 M${ex-5.5} ${ey+12} l11 0 M${ex-2.5} ${ey+16} l5 0`}));
+        if(net!=='GND'){const t=el('text',{class:'ppt',x:ex,y:ey+30,'text-anchor':'middle','data-net':net});
+          t.textContent=net;g.append(t);}
+        gL.append(g);
+      } else if(RAILS.has(net)){
+        const g=el('g',{'data-net':net,style:'cursor:pointer'}),up=ey-10;
+        g.append(el('path',{class:'pp','data-net':net,d:`M${ex} ${ey} L${ex} ${up} M${ex-11} ${up} l22 0`}));
+        const t=el('text',{class:'ppt',x:ex,y:up-5,'text-anchor':'middle','data-net':net});
+        t.textContent=net;g.append(t);gL.append(g);
+      } else {
+        const cross=(netSheets[net]||[]).length>1;
+        const g=el('g',{'data-net':net,style:'cursor:pointer'});
+        const tw=Math.max(30,net.length*5.4+16);
+        if(cross)g.append(el('path',{class:'offp','data-net':net,
+          d:dir==='L'?`M${ex} ${ey-8} l${-tw+8} 0 l-8 8 l8 8 l${tw-8} 0 z`
+                     :`M${ex} ${ey-8} l${tw-8} 0 l8 8 l-8 8 l${-tw+8} 0 z`}));
+        const t=el('text',{class:cross?'offt':'nl',x:dir==='L'?ex-6:ex+6,y:ey+3,
+          'text-anchor':dir==='L'?'end':'start','data-net':net});
+        t.textContent=net;g.append(t);gL.append(g);
+      }
+    });
+  });
+  applySel();renderSide();vb={x:0,y:0,w:1700,h:1150};apply();
+}
+function applySel(){
+  sv.classList.toggle('xs',xs);
+  document.querySelectorAll('.wire,.nl,.offp,.offt,.pp,.ppt,.cbox').forEach(e=>e.classList.remove('hot','dim'));
+  if(!sel)return;
+  const refs=new Set((SHEETS[cur].nets[sel]||[]).map(n=>n.ref));
+  document.querySelectorAll('[data-net]').forEach(e=>
+    e.classList.add(e.getAttribute('data-net')===sel?'hot':'dim'));
+  document.querySelectorAll('.cbox').forEach(g=>
+    g.classList.add(refs.has(g.getAttribute('data-ref'))?'hot':'dim'));
+}
+function renderSide(){
+  const sh=SHEETS[cur];
+  if(!sel){
+    const nets=Object.keys(sh.nets).sort();
+    const cross=nets.filter(n=>(netSheets[n]||[]).length>1);
+    side.innerHTML='<h2>'+esc(sh.id.replace(/_/g,' '))+'</h2><p><b>'+esc(sh.title)+'</b><br><br>'+esc(sh.note)+'</p>'+
+      '<div class="note">Purple flags are nets shared with other sheets. Red text is local. Bars are rails, the ladder is ground.</div>'+
+      '<h4 class="sec">Nets here — '+nets.length+'</h4><ul class="l">'+
+      nets.map(n=>{const x=(netSheets[n]||[]).length>1;
+        return '<li data-net="'+n+'"><span class="r" style="color:'+(x?'#b98fd6':'#d4571c')+'">'+(x?'↗':'·')+'</span>'+
+        esc(n)+'<span class="s">'+sh.nets[n].length+'</span></li>';}).join('')+'</ul>'+
+      '<h4 class="sec">Cross-sheet — '+cross.length+'</h4><ul class="l">'+
+      cross.map(n=>'<li data-net="'+n+'">'+esc(n)+'<span class="s">'+netSheets[n].length+'</span></li>').join('')+'</ul>';
+  }else{
+    const nodes=sh.nets[sel]||[],where=netSheets[sel]||[],info=NETINFO[sel];
+    side.innerHTML='<div class="nethead"><h3>'+esc(sel)+'</h3>'+
+      (where.length>1?'<span class="chip x">'+where.length+' sheets</span>':'<span class="chip">local</span>')+'</div>'+
+      '<dl class="m"><div><dt>Nodes</dt><dd>'+nodes.length+' here</dd></div>'+
+      '<div><dt>Sheets</dt><dd>'+esc(where.map(s=>s.replace(/_/g,' ')).join(', '))+'</dd></div></dl>'+
+      (info?'<div class="note warn">'+esc(info)+'</div>':'')+
+      '<h4 class="sec">Connections</h4><ul class="l">'+
+      nodes.map(n=>'<li><span class="r">'+esc(n.ref)+'</span>'+esc(n.pin)+
+        '<span class="s">'+esc(n.comp.val||'')+'</span></li>').join('')+'</ul>'+
+      '<h4 class="sec">Jump</h4><ul class="l">'+
+      where.map(s=>'<li data-sheet="'+s+'">'+esc(s.replace(/_/g,' '))+'</li>').join('')+'</ul>';
+  }
+  side.querySelectorAll('[data-net]').forEach(e=>e.onclick=()=>{sel=e.getAttribute('data-net');applySel();renderSide();});
+  side.querySelectorAll('[data-sheet]').forEach(e=>e.onclick=()=>{
+    const i=SHEETS.findIndex(s=>s.id===e.getAttribute('data-sheet'));
+    if(i>=0){const k=sel;cur=i;render();sel=k;applySel();renderSide();}});
+}
+sv.addEventListener('click',e=>{
+  const n=e.target.closest('[data-net]');
+  if(n){sel=n.getAttribute('data-net');applySel();renderSide();return;}
+  const c=e.target.closest('.cbox');
+  if(c){const comp=SHEETS[cur].comps.find(x=>x.ref===c.getAttribute('data-ref'));
+    if(comp){side.innerHTML='<div class="nethead"><h3>'+esc(comp.ref)+'</h3><span class="chip">'+esc(comp.kind)+'</span></div>'+
+      '<dl class="m"><div><dt>Value</dt><dd>'+esc(comp.val||comp.name||'')+'</dd></div>'+
+      '<div><dt>Sheet</dt><dd>'+esc(comp.sheet.replace(/_/g,' '))+'</dd></div></dl>'+
+      (comp.note?'<div class="note">'+esc(comp.note)+'</div>':'')+
+      '<h4 class="sec">Pins</h4><ul class="l">'+
+      Object.entries(comp.nets||{}).map(([p,nt])=>'<li data-net="'+nt+'"><span class="r">'+esc(p)+'</span>'+esc(nt)+'</li>').join('')+'</ul>';
+      side.querySelectorAll('[data-net]').forEach(x=>x.onclick=()=>{sel=x.getAttribute('data-net');applySel();renderSide();});
+      sel=null;applySel();document.querySelectorAll('.cbox').forEach(g=>g.classList.toggle('hot',g===c));}
+    return;}
+  sel=null;applySel();renderSide();
+});
+sv.addEventListener('pointermove',e=>{
+  if(drag){tip.classList.remove('on');return;}
+  const n=e.target.closest('[data-net]');
+  if(n){const net=n.getAttribute('data-net'),w=netSheets[net]||[];
+    return showTip('<div class="tr">'+esc(net)+'</div><div class="tv">'+
+      (w.length>1?w.length+' sheets: '+esc(w.map(s=>s.replace(/_/g,' ')).join(', ')):'local to this sheet')+'</div>'+
+      (NETINFO[net]?'<div class="tn">'+esc(NETINFO[net])+'</div>':''),e);}
+  const c=e.target.closest('.cbox');
+  if(c){const comp=SHEETS[cur].comps.find(x=>x.ref===c.getAttribute('data-ref'));
+    if(comp)return showTip('<div class="tr">'+esc(comp.ref)+'</div><div class="tv">'+esc(comp.val||comp.name||'')+
+      '</div>'+(comp.note?'<div class="tn">'+esc(comp.note)+'</div>':''),e);}
+  tip.classList.remove('on');
+});
+function showTip(h,e){tip.innerHTML=h;tip.classList.add('on');
+  const r=sv.getBoundingClientRect();let x=e.clientX-r.left+14,y=e.clientY-r.top+14;
+  if(x+305>r.width)x=Math.max(4,e.clientX-r.left-309);
+  if(y+tip.offsetHeight>r.height)y=Math.max(4,r.height-tip.offsetHeight-6);
+  tip.style.left=x+'px';tip.style.top=y+'px';}
+sv.addEventListener('pointerleave',()=>tip.classList.remove('on'));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){sel=null;applySel();renderSide();}});
+document.getElementById('bc').onclick=()=>{sel=null;applySel();renderSide();};
+document.getElementById('bx').onclick=function(){xs=!xs;this.classList.toggle('on',xs);applySel();};
+document.getElementById('q').addEventListener('input',e=>{
+  const q=e.target.value.trim().toUpperCase();
+  if(!q)return renderSide();
+  const hits=[],seen=new Set();
+  SHEETS.forEach(sh=>{
+    Object.keys(sh.nets).forEach(n=>{if(n.toUpperCase().includes(q)&&!seen.has('n'+n+sh.id)){seen.add('n'+n+sh.id);hits.push({t:'net',n,s:sh.id});}});
+    sh.comps.forEach(c=>{if((c.ref+' '+(c.val||'')+' '+(c.name||'')).toUpperCase().includes(q))hits.push({t:'p',n:c.ref,v:c.val,s:sh.id});});
+  });
+  side.innerHTML='<h2>Matches</h2><p>'+hits.length+'</p><ul class="l">'+
+    hits.slice(0,70).map(h=>'<li '+(h.t==='net'?'data-net="'+h.n+'" ':'')+'data-sheet="'+h.s+'">'+
+      '<span class="r">'+(h.t==='net'?'~':esc(h.n))+'</span>'+esc(h.t==='net'?h.n:(h.v||''))+
+      '<span class="s">'+esc(h.s.replace(/_/g,' '))+'</span></li>').join('')+'</ul>';
+  side.querySelectorAll('[data-sheet]').forEach(e2=>e2.onclick=()=>{
+    const i=SHEETS.findIndex(s=>s.id===e2.getAttribute('data-sheet')),nt=e2.getAttribute('data-net');
+    if(i>=0){cur=i;render();if(nt){sel=nt;applySel();renderSide();}}});
+});
+let vb={x:0,y:0,w:1700,h:1150};
+const apply=()=>sv.setAttribute('viewBox',vb.x+' '+vb.y+' '+vb.w+' '+vb.h);
+function zoomAt(f,cx,cy){const nw=Math.min(4000,Math.max(300,vb.w*f)),nh=nw*(1150/1700);
+  vb.x=cx-(cx-vb.x)*(nw/vb.w);vb.y=cy-(cy-vb.y)*(nh/vb.h);vb.w=nw;vb.h=nh;apply();}
+const toSvg=(cx,cy)=>{const r=sv.getBoundingClientRect();
+  return [vb.x+(cx-r.left)/r.width*vb.w,vb.y+(cy-r.top)/r.height*vb.h];};
+sv.addEventListener('wheel',e=>{e.preventDefault();const c=toSvg(e.clientX,e.clientY);
+  zoomAt(e.deltaY>0?1.12:.89,c[0],c[1]);},{passive:false});
+let drag=null;
+sv.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,vx:vb.x,vy:vb.y};
+  sv.classList.add('drag');sv.setPointerCapture(e.pointerId);tip.classList.remove('on');});
+sv.addEventListener('pointermove',e=>{if(!drag)return;const r=sv.getBoundingClientRect();
+  vb.x=drag.vx-(e.clientX-drag.x)/r.width*vb.w;vb.y=drag.vy-(e.clientY-drag.y)/r.height*vb.h;apply();});
+['pointerup','pointercancel','pointerleave'].forEach(t=>
+  sv.addEventListener(t,()=>{drag=null;sv.classList.remove('drag');}));
+document.getElementById('zi').onclick=()=>zoomAt(.8,vb.x+vb.w/2,vb.y+vb.h/2);
+document.getElementById('zo').onclick=()=>zoomAt(1.25,vb.x+vb.w/2,vb.y+vb.h/2);
+document.getElementById('zf').onclick=()=>{vb={x:0,y:0,w:1700,h:1150};apply();};
+render();
+</script>
